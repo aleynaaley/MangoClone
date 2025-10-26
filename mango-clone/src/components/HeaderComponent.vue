@@ -1,51 +1,189 @@
 <template>
-  <header class="header">
-    <div class="header-container">
-      <nav class="nav-left">
-        <a href="#">KADIN</a>
-        <a href="#">ERKEK</a>
-        <a href="#">TEEN</a>
-        <a href="#">ÇOCUK</a>
-        <a href="#">HOME</a>
-      </nav>
+  <div class="header-wrapper" @mouseleave="activeMenu = null">
 
-      <div class="logo">
-        MANGO
+    <header class="header">
+      <div class="header-container">
+        
+        <nav class="nav-left">
+          <a href="#" @mouseenter="activeMenu = 'KADIN'">KADIN</a>
+          <a href="#" @mouseenter="activeMenu = 'ERKEK'">ERKEK</a>
+          <a href="#" @mouseenter="activeMenu = 'TEEN'">TEEN</a>
+          <a href="#" @mouseenter="activeMenu = 'ÇOCUK'">ÇOCUK</a>
+          <a href="#" @mouseenter="activeMenu = 'HOME'">HOME</a>
+        </nav>
+
+        <div class="logo">
+          MANGO
+        </div>
+
+        <nav class="nav-right" @mouseenter="activeMenu = null">
+          <a href="#">ARA</a>
+          <a href="#">HESABIM</a>
+          <a href="#">FAVORİLER</a>
+          <a href="#">SEPET (3)</a> 
+        </nav>
       </div>
+    </header>
 
-      <nav class="nav-right">
-        <a href="#">ARA</a>
-        <a href="#">HESABIM</a>
-        <a href="#">FAVORİLER</a>
-        <a href="#">SEPET (3)</a> 
-      </nav>
-    </div>
-  </header>
+    <MenuComponent v-if="currentMenuData" :data="currentMenuData" />
+
+  </div>
 </template>
 
 <script setup>
-</script>
+//  Vue'dan 'ref' (hafıza) ve 'computed' (hesaplanmış değer) fonksiyonlarını import et
+import { ref, computed } from 'vue'
+import MenuComponent from './MenuComponent.vue'
+//  Hangi menünün aktif olduğunu takip edecek hafızayı oluştur.
+//    Başlangıçta 'null' (hiçbiri açık değil)
+const activeMenu = ref(null) // 'KADIN', 'ERKEK', 'TEEN' vb. olabilir
 
-<style scoped>
-/* Header bileşeni */
-.header {
-  position: sticky;
-  top: 0;
-  background-color: white; /* Beyaz arka plan */
-  border-bottom: 1px solid #e5e5e5; /* İlk resimdeki ince alt çizgiyi ekledik */
-  z-index: 50;
+//  Menülerin içeriğini bir JavaScript objesi olarak tanımla.
+//    Senin görsellerine göre 'KADIN' ve 'TEEN' için verileri ekledim.
+const menuData = {
+  'KADIN': {
+    type: 'simple', // Basit liste
+    items: [
+      { title: 'NEW NOW' },
+      { title: 'PARTİ VE ÖZEL GÜNLER' },
+      { title: 'GİYİM' },
+      { title: 'AYAKKABILAR VE AKSESUARLAR' },
+      { title: 'BÜYÜK BEDEN' },
+      { title: 'PROMOSYON', isRed: true }, // isRed: true olanları kırmızı yapacağız
+      { title: 'KOLEKSİYONLAR' },
+      { title: 'ÖNE ÇIKANLAR' },
+    ]
+  },
+  'ERKEK': {
+    type: 'simple',
+    items: [
+      { title: 'NEW NOW' },
+      { title: 'SELECTION' },
+      { title: 'TRİKO' },
+      { title: 'GİYİM' },
+      { title: 'TAKIM ELBİSE' },
+      { title: 'AYAKKABILAR VE AKSESUARLAR' },
+      { title: 'PROMOSYON', isRed: true },
+      { title: 'KOLEKSİYONLAR' },
+      { title: 'ÖNE ÇIKANLAR' },
+    ]
+  },
+  'TEEN': {
+    type: 'complex', // 'TEEN' menüsü daha karmaşık
+    topButtons: [
+      { title: 'GENÇ KIZ' },
+      { title: 'GENÇ ERKEK' }
+    ],
+    subtitle: '152 cm - 172 cm arası',
+    items: [
+      { title: 'NEW NOW' },
+      { title: 'AUTUMN HERITAGE' },
+      { title: 'PARTİ VE ÖZEL GÜNLER' },
+      { title: 'GİYİM' },
+      { title: 'AYAKKABILAR VE AKSESUARLAR' },
+      { title: 'PROMOSYON', isRed: true },
+      { title: 'ÖNE ÇIKANLAR' },
+    ]
+  },
+  'ÇOCUK': {
+    type: 'complex',
+    topButtons: [
+      { title: 'KIZ ÇOCUK' },
+      { title: 'ERKEK ÇOCUK' },
+      { title: 'KIZ BEBEK' },
+      { title: 'ERKEK BEBEK' },
+      { title: 'YENİ DOĞAN' }
+    ],
+    subtitle: '152 cm - 172 cm arası',
+    items: [
+      { title: 'NEW NOW' },
+      { title: 'CHRİSTMAS PARTY' },
+      { title: 'HALLOWEEN' },
+      { title: 'GİYİM' },
+      { title: 'AYAKKABILAR VE AKSESUARLAR' },
+      { title: 'PROMOSYON' },
+      { title: 'KOLEKSİYONLAR' },
+      { title: 'ÖNE ÇIKANLAR' }
+    ]
+  },
+  'HOME': {
+    type: 'simple',
+    items: [
+      { title: 'YATAK ODASI' },
+      { title: 'MUTFAK' },
+      { title: 'BANYO' },
+    ]
+  }
 }
 
-/* Ana Navigasyon Çubuğu */
-.header-container {
-  max-width: 1400px;
-  margin: 0 auto;
-  /* Dikey boşluğu sıfıra yakın ayarladık, bu üstteki boşluğu azaltmaya yardımcı olur */
-  padding: 18px 24px; 
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+// 4. activeMenu değiştiğinde, gösterilecek doğru veriyi hesaplayan bir değişken.
+const currentMenuData = computed(() => {
+  // activeMenu null ise (menü kapalıysa) null döndür.
+  if (!activeMenu.value) {
+    return null
+  }
+  // Değilse, menuData'dan ilgili kategorinin verisini bul ve döndür.
+  return menuData[activeMenu.value]
+})
+
+</script>
+
+
+<style scoped>
+/* BU EKSİK KURALI EKLE: */
+.header-wrapper {
   position: relative;
+}
+
+/* scoped: Bu Vue'ye özeldir. 
+   Anlamı: Buradaki stiller SADECE bu dosyayı etkilesin, Footer'ı bozmasın. */
+
+/* .header: <header class="header"> etiketini seçiyoruz */
+.header {
+  /* position: sticky; 
+     Anlamı: Normalde sayfayla birlikte kayar, 
+     ama 'top: 0' (en tepeye) ulaştığı an oraya YAPIŞIR (sticky) ve sabit kalır. */
+  position: sticky;
+  top: 0; 
+  background-color: white; 
+  border-bottom: 1px solid #e5e5e5; 
+  
+  /* z-index: Katman sırasıdır. 
+     Sayfadaki diğer elementlerin (resimler vb.) header'ın ÜSTÜNE çıkmasını engeller. 
+     50, "çoğu şeyden üstte olsun" demek için güvenli bir sayıdır. */
+  z-index: 50; 
+}
+
+/* .header-container: Ortadaki kapsayıcımızı seçiyoruz */
+.header-container {
+  max-width: 1400px; /* "Genişliğin 1400px'i geçmesin" */
+  margin: 0 auto; /* "Üst/alt boşluk 0, sağ/sol boşluk OTOMATİK olsun." 
+                     Bu, kutuyu yatayda mükemmel ortalar. */
+  padding: 18px 24px;   /* "Üstten/Alttan 18px, Sağdan/Soldan 24px boşluk bırak." */
+  
+  /* --- FLEXBOX BAŞLANGICI --- */
+  /* display: flex; 
+     Bu, CSS'teki en önemli özelliklerden biridir.
+     "İçimdeki doğrudan çocukları (.nav-left, .logo, .nav-right) 
+     al ve bir sıra halinde YAN YANA diz." */
+  display: flex;
+  
+  /* align-items: center; 
+     "Yan yana dizdiğim o çocukları DİKEYDE ortala." */
+  align-items: center;
+  
+  /* justify-content: space-between; 
+     "Onları YATAYDA hizala. 
+     'space-between' (araya boşluk koy) demek: 
+     İlk çocuğu (.nav-left) en sola, 
+     son çocuğu (.nav-right) en sağa yasla 
+     ve kalan tüm boşluğu ortadaki çocukların (.logo) etrafına eşit dağıt." */
+  justify-content: space-between;
+  
+  /* --- POZİSYONLAMA BAŞLANGICI  --- */
+  /* Burası .logo için bir "Çapa" (Anchor) görevi görecek.Yani headera diyecekki sen yerinden 
+  kıpırdama ama .logo senden kaçarsa sana göre hareket etsin. yanni headercontainer hareket etmez  */
+  position: relative; 
 }
 
 /* Sol ve Sağ Menü Linkleri */
@@ -55,33 +193,33 @@
   color: black; 
   font-size: 11.5px;
   font-weight: 500;
-  margin-right: 20px;
-  transition: opacity 0.2s;
-  letter-spacing: 0.5px;
-  /* Linklerin dikey hizalanmasına yardımcı olmak için display: inline-block ekleyebiliriz */
+  margin-right: 20px; /* Linkler arası boşluk */
+  letter-spacing: 0.5px; /* Harf arası boşluk */
   display: inline-block; 
 }
 
+/* Son linkin sağındaki boşluğu */
 .nav-left a:last-child,
 .nav-right a:last-child {
-  margin-right: 0;
+  margin-right: 10;
 }
 
-.nav-left a:hover,
+/* Linklerin üzerine gelince opaklığını düşür 
 .nav-right a:hover {
   opacity: 0.7;
 }
+  */
 
-/* Logo Ortada */
+
+/* Logo (Tam Ortada) */
 .logo {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  position: absolute; /* header-container'a göre pozisyon al */
+  left: 50%; /* Konteynerın %50 sağına git */
+  transform: translateX(-50%); /* Kendi genişliğinin %50'si kadar sola kay (tam ortala) */
   font-size: 22px;
   font-weight: 700;
   letter-spacing: 2px;
   color: black; 
-  /* Logo metnini dikey olarak ortalamak için bir height/line-height değeri ekleyebiliriz */
-  line-height: 1; /* Satır yüksekliğini sıfırladık */
+  line-height: 1; 
 }
 </style>

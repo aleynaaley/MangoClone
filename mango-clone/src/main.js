@@ -1,3 +1,4 @@
+/* - Projemin giriş noktası */
 import './assets/main.css' //Bu proje için genel CSS (stil) dosyasını dahil ediyor. Her sayfada geçerli olacak
 
 import { createApp } from 'vue' //Vue.js uygulamasını oluşturmak için gerekli fonksiyonu Vue kütüphanesinden alıyor
