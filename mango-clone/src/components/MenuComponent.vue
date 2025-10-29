@@ -8,12 +8,14 @@
             {{ button.title }}
           </button>
         </div>
-        <div class="menu-subtitle">{{ data.subtitle }}</div>
-        <ul class="menu-list">
-          <li v-for="item in data.items" :key="item.title" :class="{ 'is-red': item.isRed }">
-            <a href="#">{{ item.title }}</a>
-          </li>
-        </ul>
+        <div class="menu-content">
+          <div class="menu-subtitle">{{ data.subtitle }}</div>
+          <ul class="menu-list">
+            <li v-for="item in data.items" :key="item.title" :class="{ 'is-red': item.isRed }">
+              <a href="#">{{ item.title }}</a>
+            </li>
+          </ul>
+        </div>
       </div>
 
       <div v-else-if="data.type === 'simple'" class="menu-simple">
@@ -29,88 +31,110 @@
 </template>
 
 <script setup>
-// Bu bileşenin bir 'data' objesi alacağını tanımlıyoruz
-// Bu datayı ona HeaderComponent yollayacak
 defineProps({
   data: Object
 })
 </script>
 
 <style scoped>
-/* Menünün kendisi (bütün ekranı kaplayan yarı-görünmez katman) */
+/* Menü overlay - header'ın hemen altında başlayan, sol tarafa yapışık panel */
 .menu-overlay {
-  position: absolute; /* En önemli kısım: Header'a göre hizalanır */
-  top: 100%; /* Header'ın bittiği yerden başla */
-  left: 0;
-  width: 100%;
+  position: fixed; /* Ekrana sabitlenir */
+  top: 60px; /* Header yüksekliği kadar üstten başla (header yüksekliğinize göre ayarlayın) */
+  left: 0; /* Sol tarafa yapış */
+  width: 416px; /* Sabit genişlik - görseldeki gibi */
+  height: calc(100vh - 60px); /* Ekranın geri kalanını kapla */
   background-color: white;
-  /* Mango sitesindeki gibi hafif bir gölge */
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
-  border-top: 1px solid #f5f5f5;
-  z-index: 40; /* Header'ın (50) bir altında, sayfanın geri kalanının üstünde */
+  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);
+  z-index: 40; /* Header'ın altında, içeriğin üstünde */
+  overflow-y: auto; /* İçerik çok uzunsa kaydır */
+  overflow-x: hidden; /* Yatay kaydırma yok */
 }
 
-/* Menü içeriğini ortalayan kapsayıcı */
+/* Menü içeriği */
 .menu-container {
-  max-width: 1400px; /* Header ile aynı genişlikte */
-  margin: 0 auto;
-  padding: 40px 24px;
-  display: flex; /* İçeriği sola yaslamak için */
-  justify-content: flex-start;
+  width: 100%;
+  padding: 40px;
 }
 
 /* Link listesi */
 .menu-list {
-  list-style: none; /* Liste başındaki noktaları kaldır */
+  list-style: none;
   margin: 0;
   padding: 0;
 }
 
 .menu-list li {
-  margin-bottom: 16px; /* Linkler arası boşluk */
+  margin-bottom: 20px;
 }
 
 .menu-list a {
   text-decoration: none;
   color: black;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 400;
   letter-spacing: 0.5px;
+  display: block;
+  transition: color 0.2s;
 }
 
-/* Kırmızı 'PROMOSYON' linki için */
+.menu-list a:hover {
+  color: #666;
+}
+
+/* Kırmızı linkler */
 .menu-list .is-red a {
   color: #c70000;
   font-weight: 500;
 }
 
-/* --- Sadece 'TEEN' menüsü için stiller --- */
+/* Complex menü */
 .menu-complex {
-  display: flex; /* Butonlar ve linkleri yan yana koy */
-  gap: 80px; /* Aralarına boşluk koy */
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
 .menu-buttons {
   display: flex;
-  flex-direction: column; /* Butonları alt alta diz */
-  gap: 10px;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .menu-button {
   background-color: white;
   border: 1px solid black;
-  padding: 10px 20px;
-  font-size: 12px;
+  padding: 12px 24px;
+  font-size: 11px;
   font-weight: 500;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
   cursor: pointer;
-  width: 150px; /* Sabit genişlik verelim */
+  width: 100%;
   text-align: center;
+  transition: all 0.2s;
+}
+
+.menu-button:hover {
+  background-color: black;
+  color: white;
+}
+
+.menu-content {
+  display: flex;
+  flex-direction: column;
 }
 
 .menu-subtitle {
-  font-size: 12px;
-  color: #555;
-  margin-bottom: 16px;
+  font-size: 11px;
+  color: #888;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* Simple menü */
+.menu-simple {
+  width: 100%;
 }
 </style>
