@@ -11,10 +11,8 @@
           <a href="#" @mouseenter="activeMenu = 'ÇOCUK'">ÇOCUK</a>
           <a href="#" @mouseenter="activeMenu = 'HOME'">HOME</a>
         </nav>
-
-        <div class="logo">
-          MANGO
-        </div>
+        
+        <SiteLogo />
 
         <nav class="nav-right" @mouseenter="activeMenu = null">
           <a href="#">ARA</a>
@@ -34,6 +32,7 @@
 //  Vue'dan 'ref' (hafıza) ve 'computed' (hesaplanmış değer) fonksiyonlarını import et
 import { ref, computed } from 'vue'
 import MenuComponent from './MenuComponent.vue'
+import SiteLogo from '../atoms/SiteLogo.vue'
 //  Hangi menünün aktif olduğunu takip edecek hafızayı oluştur.
 //    Başlangıçta 'null' (hiçbiri açık değil)
 const activeMenu = ref(null) // 'KADIN', 'ERKEK', 'TEEN' vb. olabilir
@@ -130,7 +129,7 @@ const currentMenuData = computed(() => {
 
 
 <style scoped>
-/* BU EKSİK KURALI EKLE: */
+
 .header-wrapper {
   position: relative;
 }
@@ -204,22 +203,5 @@ const currentMenuData = computed(() => {
   margin-right: 10;
 }
 
-/* Linklerin üzerine gelince opaklığını düşür 
-.nav-right a:hover {
-  opacity: 0.7;
-}
-  */
 
-
-/* Logo (Tam Ortada) */
-.logo {
-  position: absolute; /* header-container'a göre pozisyon al */
-  left: 50%; /* Konteynerın %50 sağına git */
-  transform: translateX(-50%); /* Kendi genişliğinin %50'si kadar sola kay (tam ortala) */
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  color: black; 
-  line-height: 1; 
-}
 </style>

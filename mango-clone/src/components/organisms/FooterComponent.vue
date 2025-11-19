@@ -4,10 +4,7 @@
 
       <div class="newsletter-section">
         <p class="newsletter-text">Özel promosyonlar, kişiye özel indirimler ve son yenilikler ile ilgili bilgi alın</p>
-        <div class="newsletter-form">
-          <input type="email" placeholder="E-posta adresi" class="email-input">
-          <button class="subscribe-button">ABONE OL</button>
-        </div>
+        <NewsletterForm />
         <p class="privacy-text">
           Abone olarak, <a href="#" class="privacy-link">Gizlilik Politikasını</a> okuduğunuzu onaylamış oluyorsunuz.
         </p>
@@ -70,7 +67,8 @@
 </template>
 
 <script setup>
-// Script kısmı boş kalabilir
+import NewsletterForm from '../molecules/NewsletterForm.vue'
+
 </script>
 
 <style scoped>
@@ -105,34 +103,6 @@
   font-weight: 500;
 }
 
-.newsletter-form {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-
-.email-input {
-  padding: 10px;
- 
-  width: 250px;
-  font-size: 12px;
-  text-transform: lowercase; /* Placeholder küçük harf gibi duruyor */
-}
-
-.email-input::placeholder {
-    color: #555;
-}
-
-.subscribe-button {
-  padding: 10px 15px;
-  background-color: white;
-  color: black;
-
-  font-weight: 500;
-  font-size: 12px;
-  cursor: pointer;
-  letter-spacing: 1px;
-}
 
 .privacy-text {
   font-size: 10px;
