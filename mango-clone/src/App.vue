@@ -11,7 +11,7 @@
 <!--<template> kısmında ise bu parçaları alıp "En üste Header'ı (<HeaderComponent/>), en alta Footer'ı (<FooterComponent/>) koy" diyoruz-->
 
 <script setup>
-import HeaderComponent from './components/HeaderComponent.vue'
-import FooterComponent from './components/FooterComponent.vue'
+import HeaderComponent from './components/organisms/HeaderComponent.vue'
+import FooterComponent from './components/organisms/FooterComponent.vue'
 
 </script>
