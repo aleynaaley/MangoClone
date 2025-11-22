@@ -20,15 +20,32 @@
 
         <ul class="menu-list">
           <li v-for="item in data.items" :key="item.title" :class="{ 'is-red': item.isRed }">
-            <a href="#">{{ item.title }}</a>
-          </li>
+            
+            <router-link 
+              v-if="item.title === 'NEW NOW'" 
+              to="/new-now"
+            >
+              {{ item.title }}
+            </router-link>
+
+            <a v-else href="#">{{ item.title }}</a>
+            </li>
         </ul>
       </div>
 
       <div v-else-if="data.type === 'simple'" class="menu-simple">
         <ul class="menu-list">
           <li v-for="item in data.items" :key="item.title" :class="{ 'is-red': item.isRed }">
-            <a href="#">{{ item.title }}</a>
+            
+            <router-link 
+              v-if="item.title === 'NEW NOW'" 
+              to="/new-now"
+            >
+              {{ item.title }}
+            </router-link>
+
+            <a v-else href="#">{{ item.title }}</a>
+            
           </li>
         </ul>
       </div>

@@ -18,7 +18,7 @@
           <a href="#">ARA</a>
           <a href="#">HESABIM</a>
           <a href="#">FAVORİLER</a>
-          <a href="#">SEPET (3)</a> 
+          <a href="#">SEPET </a> 
         </nav>
       </div>
     </header>
