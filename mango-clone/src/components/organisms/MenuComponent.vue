@@ -3,19 +3,26 @@
     <div class="menu-container">
       
       <div v-if="data.type === 'complex'" class="menu-complex">
+        
         <div class="menu-buttons">
-          <button v-for="button in data.topButtons" :key="button.title" class="menu-button">
+          <button 
+            v-for="button in data.topButtons" 
+            :key="button.title" 
+            class="menu-button"
+          >
             {{ button.title }}
           </button>
         </div>
-        <div class="menu-content">
-          <div class="menu-subtitle">{{ data.subtitle }}</div>
-          <ul class="menu-list">
-            <li v-for="item in data.items" :key="item.title" :class="{ 'is-red': item.isRed }">
-              <a href="#">{{ item.title }}</a>
-            </li>
-          </ul>
+
+        <div class="menu-subtitle" v-if="data.subtitle">
+          {{ data.subtitle }}
         </div>
+
+        <ul class="menu-list">
+          <li v-for="item in data.items" :key="item.title" :class="{ 'is-red': item.isRed }">
+            <a href="#">{{ item.title }}</a>
+          </li>
+        </ul>
       </div>
 
       <div v-else-if="data.type === 'simple'" class="menu-simple">
@@ -37,27 +44,30 @@ defineProps({
 </script>
 
 <style scoped>
-/* Menü overlay - header'ın hemen altında başlayan, sol tarafa yapışık panel */
+/* --- ANA YAPISAL AYARLAR --- */
 .menu-overlay {
-  position: fixed; /* Ekrana sabitlenir */
-  top: 60px; /* Header yüksekliği kadar üstten başla (header yüksekliğinize göre ayarlayın) */
-  left: 0; /* Sol tarafa yapış */
-  width: 416px; /* Sabit genişlik - görseldeki gibi */
-  height: calc(100vh - 60px); /* Ekranın geri kalanını kapla */
+  position: fixed;
+  /* Header yüksekliğine göre burayı 53px veya 60px olarak ayarla. 
+     Görseldeki hizayı tutturmak için hesapladığımız 53px'i kullanıyorum. */
+  top: 53px; 
+  left: 0;
+  width: 416px; /* Görseldeki gibi dar, sabit genişlik */
+  height: calc(100vh - 53px); /* Ekranın sonuna kadar uzan */
+  
   background-color: white;
-  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);
-  z-index: 40; /* Header'ın altında, içeriğin üstünde */
-  overflow-y: auto; /* İçerik çok uzunsa kaydır */
-  overflow-x: hidden; /* Yatay kaydırma yok */
+  /* Sağ tarafa hafif gölge */
+  box-shadow: 4px 0 12px rgba(0,0,0,0.05); 
+  border-right: 1px solid #f5f5f5;
+  
+  z-index: 40;
+  overflow-y: auto; /* İçerik taşarsa kaydırma çubuğu çıkar */
 }
 
-/* Menü içeriği */
 .menu-container {
-  width: 100%;
-  padding: 40px;
+  padding: 30px 40px; /* Kenar boşlukları Mango'ya uygun hale getirildi */
 }
 
-/* Link listesi */
+/* --- ORTAK LİSTE STİLLERİ --- */
 .menu-list {
   list-style: none;
   margin: 0;
@@ -65,54 +75,57 @@ defineProps({
 }
 
 .menu-list li {
-  margin-bottom: 20px;
+  margin-bottom: 16px; /* Linkler arası dikey boşluk */
 }
 
 .menu-list a {
   text-decoration: none;
   color: black;
-  font-size: 14px;
-  font-weight: 400;
-  letter-spacing: 0.5px;
+  font-size: 12px; /* Mango font boyutu */
+  font-weight: 400; /* İnce yazı */
+  letter-spacing: 0.3px;
   display: block;
-  transition: color 0.2s;
+  transition: opacity 0.2s;
 }
 
 .menu-list a:hover {
-  color: #666;
+  opacity: 0.6;
 }
 
-/* Kırmızı linkler */
+/* Kırmızı Promosyon Linkleri */
 .menu-list .is-red a {
   color: #c70000;
-  font-weight: 500;
+  font-weight: 500; /* Bir tık kalın */
 }
 
-/* Complex menü */
+/* --- COMPLEX MENÜ (BUTONLU) STİLLERİ --- */
 .menu-complex {
   display: flex;
   flex-direction: column;
-  gap: 30px;
 }
 
 .menu-buttons {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  gap: 10px; /* İki buton arasındaki boşluk */
+  margin-bottom: 20px;
 }
 
 .menu-button {
+  flex: 1; /* Butonlar eşit genişlikte yayılsın */
   background-color: white;
   border: 1px solid black;
-  padding: 12px 24px;
+  padding: 10px 0; /* İç boşluk */
+  
   font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 1.5px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
   cursor: pointer;
-  width: 100%;
   text-align: center;
   transition: all 0.2s;
+  
+  /* Mango'da butonlar köşeli olur */
+  border-radius: 0; 
 }
 
 .menu-button:hover {
@@ -120,21 +133,15 @@ defineProps({
   color: white;
 }
 
-.menu-content {
-  display: flex;
-  flex-direction: column;
-}
-
 .menu-subtitle {
   font-size: 11px;
-  color: #888;
-  margin-bottom: 20px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  color: #666; /* Gri renk */
+  margin-bottom: 25px; /* Liste ile arasındaki boşluk */
+  font-weight: 400;
 }
 
-/* Simple menü */
+/* --- SIMPLE MENÜ STİLLERİ --- */
 .menu-simple {
-  width: 100%;
+  padding-top: 10px;
 }
 </style>

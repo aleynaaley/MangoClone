@@ -5,3 +5,6 @@ import { createApp } from 'vue' //Vue.js uygulamasını oluşturmak için gerekl
 import App from './App.vue' //Ana uygulama bileşenini (App.vue) dahil ediyor
 
 createApp(App).mount('#app')    //Vue uygulamasını oluşturuyor ve App bileşenini '#app' id'sine sahip HTML elementine bağlıyor
+
+
+//main.css deki stilleri buradan çağırıyoruz ve vue uygulamasını başlatıyoruz.
