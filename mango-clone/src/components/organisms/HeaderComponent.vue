@@ -5,20 +5,23 @@
       <div class="header-container">
         
         <nav class="nav-left">
-          <a href="#" @mouseenter="activeMenu = 'KADIN'">KADIN</a>
+          <router-link to="/" @mouseenter="activeMenu = 'KADIN'">KADIN</router-link>
+          
           <a href="#" @mouseenter="activeMenu = 'ERKEK'">ERKEK</a>
           <a href="#" @mouseenter="activeMenu = 'TEEN'">TEEN</a>
           <a href="#" @mouseenter="activeMenu = 'ÇOCUK'">ÇOCUK</a>
           <a href="#" @mouseenter="activeMenu = 'HOME'">HOME</a>
         </nav>
-        
-        <SiteLogo />
+
+        <router-link to="/" class="logo-link">
+           <SiteLogo />
+        </router-link>
 
         <nav class="nav-right" @mouseenter="activeMenu = null">
           <a href="#">ARA</a>
           <a href="#">HESABIM</a>
           <a href="#">FAVORİLER</a>
-          <a href="#">SEPET </a> 
+          <a href="#">SEPET</a> 
         </nav>
       </div>
     </header>

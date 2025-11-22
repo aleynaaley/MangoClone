@@ -31,10 +31,10 @@ import ProductCard from '../components/molecules/ProductCard.vue'
 
 // Mock Data: Görseldeki ürünleri taklit edelim
 const products = ref([
-  { id: 1, title: 'Çizgili triko kazak', price: '2.299,99', hasLargeSize: false, image: 'https://st.mngbcn.com/rcs/pics/static/T7/fotos/S20/77009056_92.jpg?ts=1700000000000&imwidth=500&imdensity=2' },
-  { id: 2, title: 'Düşük belli barrel jean', price: '2.299,99', hasLargeSize: false, image: 'https://st.mngbcn.com/rcs/pics/static/T7/fotos/S20/77029059_05.jpg?ts=1700000000000&imwidth=500&imdensity=2' },
-  { id: 3, title: 'Geniş kesimli cepli gömlek', price: '2.299,99', hasLargeSize: false, image: 'https://st.mngbcn.com/rcs/pics/static/T7/fotos/outfit/S20/77019062_99-99999999_01.jpg?ts=1700000000000&imwidth=500&imdensity=2' },
-  { id: 4, title: 'Kemerli Manteco yünlü palto', price: '8.999,99', hasLargeSize: true, image: 'https://st.mngbcn.com/rcs/pics/static/T7/fotos/S20/77059060_56.jpg?ts=1700000000000&imwidth=500&imdensity=2' },
+  { id: 1, title: 'Çizgili triko kazak', price: '2.299,99', hasLargeSize: false, image: '/images/kadın5.jpeg' },
+  { id: 2, title: 'Düşük belli barrel jean', price: '2.299,99', hasLargeSize: false, image: '/images/kadın6.jpeg'},
+  { id: 3, title: 'Geniş kesimli cepli gömlek', price: '2.299,99', hasLargeSize: false, image: '/images/kadın7.jpeg' },
+  { id: 4, title: 'Kemerli Manteco yünlü palto', price: '8.999,99', hasLargeSize: true, image: '/images/kadın8.jpeg' },
 ])
 </script>
 
