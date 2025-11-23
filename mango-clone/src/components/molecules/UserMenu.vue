@@ -3,11 +3,19 @@
     <div class="triangle"></div>
 
     <div class="action-area">
+      <router-link to="/login">
       <BaseButton class="login-btn">OTURUMU AÇ</BaseButton>
+      </router-link>
       <p class="register-text">
-        Hesabınız yok mu? <a href="#" class="register-link">Kayıt ol</a>
+        Hesabınız yok mu? 
+        <router-link to="/signup" class="register-link">Kayıt ol</router-link>
       </p>
     </div>
+
+    
+
+
+
 
     <ul class="menu-links">
       <li>
