@@ -13,14 +13,19 @@
     </div>
 
     <div class="product-grid">
-      <ProductCard 
+      <router-link 
         v-for="product in products" 
         :key="product.id"
-        :image="product.image"
-        :title="product.title"
-        :price="product.price"
-        :has-large-size="product.hasLargeSize"
-      />
+        :to="`/product/${product.id}`" 
+        style="text-decoration: none; color: inherit;"
+      >
+        <ProductCard 
+          :image="product.image"
+          :title="product.title"
+          :price="product.price"
+          :has-large-size="product.hasLargeSize"
+        />
+      </router-link>
     </div>
   </div>
 </template>

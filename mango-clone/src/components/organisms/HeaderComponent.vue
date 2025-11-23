@@ -19,9 +19,18 @@
 
         <nav class="nav-right" @mouseenter="activeMenu = null">
           <a href="#">ARA</a>
-          <a href="#">HESABIM</a>
+          
+          <div 
+            class="user-menu-wrapper" 
+            @mouseenter="isUserMenuOpen = true" 
+            @mouseleave="isUserMenuOpen = false"
+          >
+            <a href="#" class="login-link">GİRİŞ YAP</a>
+            
+            <UserMenu v-show="isUserMenuOpen" />
+          </div>
           <a href="#">FAVORİLER</a>
-          <a href="#">SEPET</a> 
+          <a href="#">SEPET (3)</a> 
         </nav>
       </div>
     </header>
@@ -36,9 +45,12 @@
 import { ref, computed } from 'vue'
 import MenuComponent from './MenuComponent.vue'
 import SiteLogo from '../atoms/SiteLogo.vue'
+
+import UserMenu from '../molecules/UserMenu.vue'
 //  Hangi menünün aktif olduğunu takip edecek hafızayı oluştur.
 //    Başlangıçta 'null' (hiçbiri açık değil)
 const activeMenu = ref(null) // 'KADIN', 'ERKEK', 'TEEN' vb. olabilir
+const isUserMenuOpen = ref(false)
 
 //  Menülerin içeriğini bir JavaScript objesi olarak tanımla.
 //    Senin görsellerine göre 'KADIN' ve 'TEEN' için verileri ekledim.
@@ -205,6 +217,24 @@ const currentMenuData = computed(() => {
 .nav-right a:last-child {
   margin-right: 10;
 }
+/* Kullanıcı menüsünü tutan kapsayıcı */
+.user-menu-wrapper {
+  position: relative; /* UserMenu buna göre hizalansın diye */
+  display: inline-block;
+  margin-right: 20px; /* Linkler arası boşluk */
+  height: 100%; /* Header yüksekliği kadar */
+  padding-top: 5px; /* Hizalama ayarı */
+}
 
+/* Mouse üzerine gelince 'Giriş Yap'ın altını çiz */
+.user-menu-wrapper:hover .login-link {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Header içindeki a etiketinin marginini sıfırlıyoruz çünkü wrapper'a margin verdik */
+.user-menu-wrapper a {
+  margin-right: 0; 
+}
 
 </style>
