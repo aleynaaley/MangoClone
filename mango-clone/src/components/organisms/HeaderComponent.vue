@@ -5,15 +5,15 @@
       <div class="header-container">
         
         <nav class="nav-left">
-          <router-link to="/" @mouseenter="activeMenu = 'KADIN'">KADIN</router-link>
+          <router-link to="/kadin" @mouseenter="activeMenu = 'KADIN'">KADIN</router-link>
+          <router-link to="/erkek" @mouseenter="activeMenu = 'ERKEK'">ERKEK</router-link>
           
-          <a href="#" @mouseenter="activeMenu = 'ERKEK'">ERKEK</a>
           <a href="#" @mouseenter="activeMenu = 'TEEN'">TEEN</a>
           <a href="#" @mouseenter="activeMenu = 'ÇOCUK'">ÇOCUK</a>
           <a href="#" @mouseenter="activeMenu = 'HOME'">HOME</a>
         </nav>
 
-        <router-link to="/" class="logo-link">
+        <router-link to="/kadin" class="logo-link">
            <SiteLogo />
         </router-link>
 

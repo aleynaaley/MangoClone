@@ -23,7 +23,7 @@
             
             <router-link 
               v-if="item.title === 'NEW NOW'" 
-              to="/new-now"
+              to="/kadin/new-now"
             >
               {{ item.title }}
             </router-link>
@@ -39,7 +39,7 @@
             
             <router-link 
               v-if="item.title === 'NEW NOW'" 
-              to="/new-now"
+              to="/kadin/new-now"
             >
               {{ item.title }}
             </router-link>
