@@ -11,12 +11,7 @@
         <router-link to="/signup" class="register-link">Kayıt ol</router-link>
       </p>
     </div>
-
     
-
-
-
-
     <ul class="menu-links">
       <li>
         <a href="#">ALIŞVERİŞLERİM <span class="arrow">→</span></a>

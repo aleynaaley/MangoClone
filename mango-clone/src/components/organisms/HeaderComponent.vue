@@ -29,8 +29,8 @@
             
             <UserMenu v-show="isUserMenuOpen" />
           </div>
-          <a href="#">FAVORİLER</a>
-          <a href="#">SEPET (3)</a> 
+          <router-link to="/favorites" >FAVORİ ÜRÜNLER</router-link>
+          <router-link to="/cart">SEPET (1)</router-link> 
         </nav>
       </div>
     </header>
