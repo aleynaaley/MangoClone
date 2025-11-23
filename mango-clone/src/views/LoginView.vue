@@ -37,7 +37,7 @@
 </template>
 
 <script setup>
-// Script kısmı şimdilik boş, sadece görüntü yapıyoruz.
+
 </script>
 
 <style scoped>
@@ -107,7 +107,7 @@
 
 .custom-checkbox input {
   margin-right: 10px;
-  transform: scale(1.2); /* Kutuyu biraz büyüt */
+  transform: scale(1.2);
 }
 
 /* BUTONLAR */

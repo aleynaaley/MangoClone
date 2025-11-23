@@ -22,25 +22,25 @@
 
 <script setup>
 import { ref } from 'vue'
-// Bileşenleri import ediyoruz (Yollara dikkat: ../ ile üst klasöre çıkıyoruz)
+// Bileşenleri import ediyoruz 
 import HeroSection from '../components/organisms/HeroSection.vue'
 import DualSection from '../components/organisms/DualSection.vue'
 
 // ERKEK SAYFASI VERİLERİ
 const pageContent = ref([
-  // 1. HERO: ERKEK ANA GÖRSEL
+  // 1. HERO
   {
     id: 1,
     type: 'hero',
     data: {
       title: 'NEW NOW',
       buttonText: 'DAHA FAZLASINI KEŞFET',
-      image: '/images/erkek2.jpeg', // Senin koyduğun resim
+      image: '/images/erkek2.jpeg',
       isWhite: true 
     }
   },
   
-  // 2. DUAL: İKİLİ GÖRSEL (Örn: Ceket & Pantolon)
+  // 2. DUAL
   {
     id: 2,
     type: 'dual',
@@ -58,7 +58,7 @@ const pageContent = ref([
     ]
   },
 
-  // 3. DUAL: İKİLİ GÖRSEL (Örn: Gömlek & Ayakkabı)
+  // 3. DUAL
   {
     id: 3,
     type: 'dual',
@@ -76,7 +76,7 @@ const pageContent = ref([
     ]
   },
 
-  // 4. HERO: BAŞKA BİR KAMPANYA
+  // 4. HERO
   {
     id: 4,
     type: 'hero',
@@ -88,7 +88,7 @@ const pageContent = ref([
     }
   },
 
-  // 5. HERO: FİNAL GÖRSEL
+  // 5. HERO
   {
     id: 5,
     type: 'hero',

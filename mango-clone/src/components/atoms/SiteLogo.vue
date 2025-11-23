@@ -5,11 +5,11 @@
 </template>
 
 <script setup>
-// Script'e gerek yok
+
 </script>
 
 <style scoped>
-/* HeaderComponent'ten kopyaladığımız stil */
+
 .logo {
   position: absolute;
   left: 50%;

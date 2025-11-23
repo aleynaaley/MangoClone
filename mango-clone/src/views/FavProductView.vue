@@ -24,7 +24,7 @@
 import { ref } from 'vue'
 import ProductCard from '../components/molecules/ProductCard.vue'
 
-// Sanki veritabanından gelmiş gibi favori ürün listesi
+// Sanki veritabanından gelmiş gibi
 const favProducts = ref([
   { 
     id: 1, 

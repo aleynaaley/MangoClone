@@ -4,11 +4,11 @@
 </template>
 
 <script setup>
-// Script'e gerek yok
+
 </script>
 
 <style scoped>
-/* FooterComponent'ten kopyaladık ve adını değiştirdik */
+
 .base-button {
   padding: 10px 15px;
   background-color: white;

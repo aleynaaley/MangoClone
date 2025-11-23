@@ -34,7 +34,7 @@
 import { ref } from 'vue'
 import ProductCard from '../components/molecules/ProductCard.vue'
 
-// Mock Data: Görseldeki ürünleri taklit edelim
+
 const products = ref([
   { id: 1, title: 'Çizgili triko kazak', price: '2.299,99', hasLargeSize: false, image: '/images/kadın5.jpeg' },
   { id: 2, title: 'Düşük belli barrel jean', price: '2.299,99', hasLargeSize: false, image: '/images/kadın6.jpeg'},
@@ -66,7 +66,7 @@ const products = ref([
 
 .product-grid {
   display: grid;
-  /* Burası önemli: 4 Sütunlu Grid yapısı (Görseldeki gibi) */
+  /* 4 Sütunlu Grid yapısı */
   grid-template-columns: repeat(4, 1fr); 
   gap: 10px; /* Kartlar arası boşluk */
 }

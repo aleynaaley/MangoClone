@@ -41,19 +41,19 @@
 </template>
 
 <script setup>
-//  Vue'dan 'ref' (hafıza) ve 'computed' (hesaplanmış değer) fonksiyonlarını import et
+//  Vue'dan 'ref' (hafıza) ve 'computed' (hesaplanmış değer) fonksiyonlarını import 
 import { ref, computed } from 'vue'
 import MenuComponent from './MenuComponent.vue'
 import SiteLogo from '../atoms/SiteLogo.vue'
 
 import UserMenu from '../molecules/UserMenu.vue'
-//  Hangi menünün aktif olduğunu takip edecek hafızayı oluştur.
+//  Hangi menünün aktif olduğunu takip edecek hafıza
 //    Başlangıçta 'null' (hiçbiri açık değil)
 const activeMenu = ref(null) // 'KADIN', 'ERKEK', 'TEEN' vb. olabilir
 const isUserMenuOpen = ref(false)
 
 //  Menülerin içeriğini bir JavaScript objesi olarak tanımla.
-//    Senin görsellerine göre 'KADIN' ve 'TEEN' için verileri ekledim.
+
 const menuData = {
   'KADIN': {
     type: 'simple', // Basit liste
@@ -130,7 +130,6 @@ const menuData = {
   }
 }
 
-// 4. activeMenu değiştiğinde, gösterilecek doğru veriyi hesaplayan bir değişken.
 const currentMenuData = computed(() => {
   // activeMenu null ise (menü kapalıysa) null döndür.
   if (!activeMenu.value) {
@@ -152,7 +151,7 @@ const currentMenuData = computed(() => {
 /* scoped: Bu Vue'ye özeldir. 
    Anlamı: Buradaki stiller SADECE bu dosyayı etkilesin, Footer'ı bozmasın. */
 
-/* .header: <header class="header"> etiketini seçiyoruz */
+/* .header: <header class="header"> ETİKETİ */
 .header {
   /* position: sticky; 
      Anlamı: Normalde sayfayla birlikte kayar, 

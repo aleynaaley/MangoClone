@@ -17,7 +17,7 @@
 <script setup>
 import BaseButton from '../atoms/BaseButton.vue'
 
-// İŞTE HOCANIN İSTEDİĞİ KISIM: PROPS TANIMLAMASI
+//  PROPS TANIMLAMASI
 // Bu bileşen dışarıdan bu verileri bekliyor.
 defineProps({
   backgroundImage: {
@@ -36,7 +36,7 @@ defineProps({
     type: String,
     default: 'DAHA FAZLASINI KEŞFET'
   },
-  isTextWhite: { // Yazılar beyaz mı olsun siyah mı?
+  isTextWhite: { // Yazılar beyaz mı olsun siyah mı
     type: Boolean,
     default: true 
   }
@@ -46,7 +46,7 @@ defineProps({
 <style scoped>
 .hero-section {
   width: 100%;
-  height: 90vh; /* Ekranın %90'ını kapla (Mango tarzı) */
+  height: 90vh; /* Ekranın %90'ını kapla */
   background-size: cover; /* Resmi kutuya sığdır */
   background-position: center;
   display: flex;

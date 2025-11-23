@@ -55,7 +55,6 @@ import { ref } from 'vue'
 import BaseButton from '../components/atoms/BaseButton.vue'
 
 // Bu sayfada gösterilecek resimler
-// (Senin elindeki resmi 4 kere kullandım, grid yapısını görmek için)
 const productImages = ref([
   '/images/kadın5.jpeg',
   '/images/kadın9.jpeg',
@@ -158,7 +157,7 @@ const productImages = ref([
   margin-bottom: 10px;
 }
 
-/* BaseButton'u özelleştiriyoruz (Siyah yapıyoruz) */
+/* BaseButton'u (Siyah) */
 .add-btn {
   flex: 1;
   background-color: black !important;

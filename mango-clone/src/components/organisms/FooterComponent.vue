@@ -146,9 +146,9 @@ import NewsletterForm from '../molecules/NewsletterForm.vue'
 /* .footer-links-grid: Dört sütunlu link alanını seçiyoruz */
 .footer-links-grid {
   /* --- CSS GRID BAŞLANGICI --- */
-  /* Bu da 'display: flex' gibi güçlü bir özelliktir.
-     Flexbox genelde tek boyutlu (ya satır YA DA sütun) hizalama içindir.
-     Grid ise iki boyutlu (hem satır HEM de sütun) hizalama içindir.  */
+  /* Bu da 'display: flex' gibi güçlü bir özellik.
+     Flexbox genelde tek boyutlu (ya satır YA DA sütun) hizalama için.
+     Grid ise iki boyutlu (hem satır HEM de sütun) hizalama için.  */
   display: grid;
   
   /* "Sütun şablonumu ayarla."
@@ -194,7 +194,7 @@ import NewsletterForm from '../molecules/NewsletterForm.vue'
   max-width: 1400px;
   margin: 0 auto; /* Ortala */
   padding: 0 px 10px;
-  display: flex; /* Yine Flexbox! */
+  display: flex;
   
   /* 'space-between' ile 
      ilk çocuğu (.legal-links) en sola, 

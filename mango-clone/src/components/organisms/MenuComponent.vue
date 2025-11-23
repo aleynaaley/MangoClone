@@ -64,8 +64,6 @@ defineProps({
 /* --- ANA YAPISAL AYARLAR --- */
 .menu-overlay {
   position: fixed;
-  /* Header yüksekliğine göre burayı 53px veya 60px olarak ayarla. 
-     Görseldeki hizayı tutturmak için hesapladığımız 53px'i kullanıyorum. */
   top: 53px; 
   left: 0;
   width: 416px; /* Görseldeki gibi dar, sabit genişlik */

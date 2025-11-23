@@ -50,7 +50,6 @@ defineProps({
   justify-content: space-between; /* Başlık sola, link sağa */
   align-items: flex-end;
   color: white; /* Resim koyuysa yazı beyaz olsun */
-  /* Eğer resim çok açıksa text-shadow ekleyebiliriz */
   text-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 

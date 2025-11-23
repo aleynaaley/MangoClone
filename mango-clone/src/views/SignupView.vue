@@ -53,7 +53,7 @@
 </script>
 
 <style scoped>
-/* LoginView ile benzer stilleri kullanıyoruz */
+
 .auth-page { display: flex; justify-content: center; padding: 60px 20px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
 .auth-container { width: 100%; max-width: 400px; }
 .page-title { font-size: 18px; font-weight: 500; margin-bottom: 40px; }

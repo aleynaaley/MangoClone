@@ -31,12 +31,10 @@ import HeroSection from '../components/organisms/HeroSection.vue'
 import DualSection from '../components/organisms/DualSection.vue'
 
 // MOCK DATA (Sanki veritabanından gelmiş gibi verilerimiz)
-// Mango Kadın ana sayfasındaki sıralamayı buraya yazıyoruz.
-// App.vue içindeki script kısmı
 
 
 const pageContent = ref([
-  // 1. BÖLÜM: BÜYÜK HERO (NEW NOW)
+  // 1. BÖLÜM
   {
     id: 1,
     type: 'hero', // Bu bir HeroSection olacak
@@ -48,7 +46,7 @@ const pageContent = ref([
     }
   },
   
-  // 2. BÖLÜM: İKİLİ GÖRSEL (Grid)
+  // 2. BÖLÜM
   {
     id: 2,
     type: 'dual', // Bu bir DualSection olacak
