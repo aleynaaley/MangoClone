@@ -40,8 +40,8 @@ defineProps({
   size: String,
   color: String,
   quantity: {
-    type: Number,
-    default: 1
+    type: Number, //adet
+    default: 1    
   }
 })
 </script>

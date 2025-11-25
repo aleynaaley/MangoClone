@@ -1,7 +1,7 @@
 <template>
   <section class="dual-section">
     <div 
-      v-for="(item, index) in items" 
+      v-for="(item, index) in items"  
       :key="index" 
       class="dual-column"
       :style="{ backgroundImage: `url(${item.image})` }"

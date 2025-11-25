@@ -10,7 +10,7 @@ import BaseButton from '../atoms/BaseButton.vue'
 </script>
 
 <style scoped>
-/* FooterComponent'ten kopyaladığımız stiller */
+
 .newsletter-form {
   display: flex;
   justify-content: center;
