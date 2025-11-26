@@ -16,7 +16,7 @@
         </div>
         <div class="social-links">
           <a href="#">INSTAGRAM</a>
-          <a href="#">FACEBOOK</a>
+          <a href="#">FACEBOOK</a>            çapa , boş linkler
           <a href="#">YOUTUBE</a>
           <a href="#">TIKTOK</a>
           <a href="#">SPOTIFY</a>

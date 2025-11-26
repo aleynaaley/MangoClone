@@ -35,7 +35,7 @@
       </div>
     </header>
 
-    <MenuComponent v-if="currentMenuData" :data="currentMenuData" />
+      <MenuComponent v-if="currentMenuData" :data="currentMenuData" />    
 
   </div>
 </template>
