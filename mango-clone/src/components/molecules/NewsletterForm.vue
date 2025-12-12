@@ -1,6 +1,6 @@
 <template>
   <div class="newsletter-form">
-    <input type="email" placeholder="E-posta adresi" class="email-input">
+    <input type="email" placeholder="E-posta adresi" class="email-input" >
     <BaseButton>ABONE OL</BaseButton>
   </div>
 </template>
@@ -11,6 +11,7 @@ import BaseButton from '../atoms/BaseButton.vue'
 
 <style scoped>
 
+  
 .newsletter-form {
   display: flex;
   justify-content: center;
