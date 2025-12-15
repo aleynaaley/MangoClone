@@ -30,7 +30,7 @@
             <UserMenu v-show="isUserMenuOpen" />
           </div>
           <router-link to="/favorites" >FAVORİ ÜRÜNLER</router-link>
-          <router-link to="/cart">SEPET (1)</router-link> 
+          <router-link to="/cart">SEPET </router-link> 
         </nav>
       </div>
     </header>

@@ -1,25 +1,23 @@
 <template>
   <div class="auth-page">
     <div class="auth-container">
-      
+
       <h1 class="page-title">GİRİŞ YAP</h1>
 
       <form @submit.prevent class="auth-form">
-        
-        <BaseInput placeholder="E-posta adresi" type="email" />
+
+        <div class="input-group">
+          <BaseInput placeholder="E-posta adresi" type="email" />
+        </div>
 
         <div class="password-wrapper">
           <BaseInput placeholder="Şifre" type="password" />
-          <span class="eye-icon">👁</span>
+          <span class="eye-icon">👁‍🗨</span>
         </div>
 
-        <div class="checkbox-group">
-          <label class="custom-checkbox">
-            <input type="checkbox" />
-            <span class="checkmark"></span>
-            Oturumu açık tut
-          </label>
-        </div>
+        <BaseCheckbox id="keep-login">
+          Oturumu açık tut
+        </BaseCheckbox>
 
         <button type="submit" class="btn btn-black">OTURUM AÇ</button>
 
@@ -27,7 +25,7 @@
           HESABI ŞİMDİ OLUŞTUR
         </router-link>
 
-        <a href="#" class="forgot-link">Parolanı unuttun mu?</a>
+        <a href="#" class="forgot-link">PAROLANI UNUTTUN MU?</a>
 
       </form>
     </div>
@@ -35,36 +33,130 @@
 </template>
 
 <script setup>
-import BaseInput from '../components/atoms/BaseInput.vue' // <-- YENİ IMPORT
+import BaseInput from '../components/atoms/BaseInput.vue'
+import BaseCheckbox from '../components/atoms/BaseCheckbox.vue'
 </script>
 
 <style scoped>
-.auth-page { display: flex; justify-content: center; padding: 60px 20px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
-.auth-container { width: 100%; max-width: 400px; text-align: center; }
-.page-title { font-size: 18px; font-weight: 500; margin-bottom: 40px; text-align: left; }
+/* SAYFA DÜZENİ */
+.auth-page {
+  display: flex;
+  justify-content: center;
+  padding: 60px 20px;
+  /* Üstten boşluk */
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
 
-/* Şifre ve Göz İkonu Ayarı */
+.auth-container {
+  width: 100%;
+  max-width: 350px;
+  /* Formun maksimum genişliği */
+}
+
+.page-title {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 30px;
+  text-align: left;
+  /* Başlığı sola yasla */
+  letter-spacing: 0.5px;
+  color: black;
+}
+
+/* --- ATOM KONTROL MERKEZİ --- */
+/* Atomların %100 genişlikte olduğundan emin oluyoruz */
+:deep(.input-wrapper),
+:deep(.base-input) {
+  width: 100% !important;
+  box-sizing: border-box;
+  /* Padding eklenince taşmasın */
+}
+
+/* Şifre Alanı Ayarları */
 .password-wrapper {
   position: relative;
-  /* BaseInput'un kendi margin'i var, ekstra vermeye gerek yok */
+  width: 100%;
+  /* Kapsayıcı tam genişlikte olsun */
+  margin-bottom: 20px;
+  /* Altındaki checkbox ile mesafe */
 }
 
 .password-wrapper .eye-icon {
   position: absolute;
   right: 15px;
-  top: 20px; /* Gözü ortalamak için ince ayar */
+  top: 50%;
+  /* Tam ortala */
+  transform: translateY(-50%);
+  /* Matematiksel olarak dikey ortalama */
   cursor: pointer;
-  font-size: 16px;
-  color: #666;
+  font-size: 18px;
+  color: #333;
 }
 
-.checkbox-group { display: flex; align-items: center; margin-bottom: 30px; }
-.custom-checkbox { display: flex; align-items: center; font-size: 12px; cursor: pointer; color: #333; }
-.custom-checkbox input { margin-right: 10px; transform: scale(1.2); }
 
-.btn { width: 100%; padding: 15px; font-size: 11px; font-weight: 600; cursor: pointer; border: 1px solid black; letter-spacing: 0.5px; display: block; text-decoration: none; box-sizing: border-box; text-align: center; }
-.btn-black { background-color: black; color: white; margin-bottom: 15px; }
-.btn-white { background-color: white; color: black; margin-bottom: 40px; }
-.btn-white:hover { background-color: #f5f5f5; }
-.forgot-link { color: black; font-size: 12px; text-decoration: underline; text-underline-offset: 3px; font-weight: 500; }
+/* BUTONLAR */
+.btn {
+  width: 100%;
+  /* Tam genişlik */
+  padding: 16px;
+  font-size: 12px;
+  font-weight: 700;
+  /* Kalın yazı */
+  cursor: pointer;
+  border: 1px solid black;
+  letter-spacing: 1px;
+  display: block;
+  text-decoration: none;
+  box-sizing: border-box;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.btn-black {
+  background-color: black;
+  color: white;
+}
+
+.btn-black:hover {
+  opacity: 0.8;
+}
+
+.btn-white {
+  background-color: white;
+  color: black;
+  margin-bottom: 40px;
+  /* Link ile arasındaki boşluk */
+}
+
+.btn-white:hover {
+  background-color: #f9f9f9;
+}
+
+/* UNUTTUM LİNKİ  */
+.forgot-link {
+  color: black;
+  font-size: 11px;
+  font-weight: 500;
+  /* Kalın */
+  text-decoration: none;
+  padding-bottom: 2px;
+  display: inline-block;
+  text-transform: uppercase;
+  /* BÜYÜK HARF */
+}
+
+.forgot-link:hover {
+  opacity: 0.7;
+}
+
+/* Form içindeki elemanları ortalamak için (Link gibi) */
+.auth-form {
+  text-align: center;
+}
+
+/* Ama inputlar sola yaslı kalsın */
+.input-group,
+.password-wrapper {
+  text-align: left;
+}
 </style>

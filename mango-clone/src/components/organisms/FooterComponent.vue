@@ -23,16 +23,7 @@
         <div class="country-selector">
           <a href="#" class="country-link">TÜRKİYE →</a>
         </div>
-        <div class="social-links">
-          <a href="#">INSTAGRAM</a>
-          <a href="#">FACEBOOK</a>
-          <a href="#">YOUTUBE</a>
-          <a href="#">TIKTOK</a>
-          <a href="#">SPOTIFY</a>
-          <a href="#">PINTEREST</a>
-          <a href="#">X</a>
-          <a href="#">LINKEDIN</a>
-        </div>
+        <SocialGroup />
       </div>
 
       <div class="footer-links-grid">
@@ -77,6 +68,7 @@
 
 <script setup>
 import NewsletterForm from '../molecules/NewsletterForm.vue'
+import SocialGroup from '../molecules/SocialGroup.vue'
 
 </script>
 

@@ -65,8 +65,6 @@ defineProps({
   text-decoration: none;
   font-size: 11px;
   font-weight: 500;
-  text-decoration: underline;
-  text-underline-offset: 4px; /* Alt çizgiyi biraz aşağı al */
 }
 
 /* Küçük ekranlarda (Mobil) alt alta geçsin */
