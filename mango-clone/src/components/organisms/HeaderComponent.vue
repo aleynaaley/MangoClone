@@ -26,44 +26,45 @@
             @mouseleave="isUserMenuOpen = false"
           >
             <a href="#" class="login-link">GİRİŞ YAP</a>
-            
             <UserMenu v-show="isUserMenuOpen" />
           </div>
-          <router-link to="/favorites" >FAVORİ ÜRÜNLER</router-link>
-          <router-link to="/cart">SEPET </router-link> 
+          
+          <router-link to="/favorites">FAVORİ ÜRÜNLER</router-link>
+          <router-link to="/cart">SEPET</router-link> 
         </nav>
+
       </div>
     </header>
 
-      <MenuComponent v-if="currentMenuData" :data="currentMenuData" />    
+    <MenuComponent v-if="currentMenuData" :data="currentMenuData" />    
 
   </div>
 </template>
 
 <script setup>
-//  Vue'dan 'ref' (hafıza) ve 'computed' (hesaplanmış değer) fonksiyonlarını import 
 import { ref, computed } from 'vue'
+
+// --- İMPORTLARIN YOLLARINI KONTROL ET ---
+// Eğer dosya yerleri farklıysa burayı güncellemen gerekir
 import MenuComponent from './MenuComponent.vue'
-import SiteLogo from '../atoms/SiteLogo.vue'
-
+import SiteLogo from '../atoms/SiteLogo.vue' 
 import UserMenu from '../molecules/UserMenu.vue'
-//  Hangi menünün aktif olduğunu takip edecek hafıza
-//    Başlangıçta 'null' (hiçbiri açık değil)
-const activeMenu = ref(null) // 'KADIN', 'ERKEK', 'TEEN' vb. olabilir
-const isUserMenuOpen = ref(false)
 
-//  Menülerin içeriğini bir JavaScript objesi olarak tanımla.
+// --- STATE (DURUM) YÖNETİMİ ---
+const activeMenu = ref(null) // Hangi menü açık? (KADIN, ERKEK vs.)
+const isUserMenuOpen = ref(false) // Kullanıcı menüsü açık mı?
 
+// --- MENÜ VERİLERİ (Database gibi düşün) ---
 const menuData = {
   'KADIN': {
-    type: 'simple', // Basit liste
+    type: 'simple',
     items: [
       { title: 'NEW NOW' },
       { title: 'PARTİ VE ÖZEL GÜNLER' },
       { title: 'GİYİM' },
       { title: 'AYAKKABILAR VE AKSESUARLAR' },
       { title: 'BÜYÜK BEDEN' },
-      { title: 'PROMOSYON', isRed: true }, // isRed: true olanları kırmızı yapacağız
+      { title: 'PROMOSYON', isRed: true },
       { title: 'KOLEKSİYONLAR' },
       { title: 'ÖNE ÇIKANLAR' },
     ]
@@ -83,157 +84,122 @@ const menuData = {
     ]
   },
   'TEEN': {
-    type: 'complex', // 'TEEN' menüsü daha karmaşık
-    topButtons: [
-      { title: 'GENÇ KIZ' },
-      { title: 'GENÇ ERKEK' }
-    ],
+    type: 'complex',
+    topButtons: [{ title: 'GENÇ KIZ' }, { title: 'GENÇ ERKEK' }],
     subtitle: '152 cm - 172 cm arası',
-    items: [
-      { title: 'NEW NOW' },
-      { title: 'AUTUMN HERITAGE' },
-      { title: 'PARTİ VE ÖZEL GÜNLER' },
-      { title: 'GİYİM' },
-      { title: 'AYAKKABILAR VE AKSESUARLAR' },
-      { title: 'PROMOSYON', isRed: true },
-      { title: 'ÖNE ÇIKANLAR' },
-    ]
+    items: [{ title: 'NEW NOW' }, { title: 'GİYİM' }, { title: 'PROMOSYON', isRed: true }]
   },
   'ÇOCUK': {
     type: 'complex',
-    topButtons: [
-      { title: 'KIZ ÇOCUK' },
-      { title: 'ERKEK ÇOCUK' },
-      { title: 'KIZ BEBEK' },
-      { title: 'ERKEK BEBEK' },
-      { title: 'YENİ DOĞAN' }
-    ],
-    subtitle: '152 cm - 172 cm arası',
-    items: [
-      { title: 'NEW NOW' },
-      { title: 'CHRİSTMAS PARTY' },
-      { title: 'HALLOWEEN' },
-      { title: 'GİYİM' },
-      { title: 'AYAKKABILAR VE AKSESUARLAR' },
-      { title: 'PROMOSYON' },
-      { title: 'KOLEKSİYONLAR' },
-      { title: 'ÖNE ÇIKANLAR' }
-    ]
+    topButtons: [{ title: 'KIZ' }, { title: 'ERKEK' }, { title: 'BEBEK' }],
+    items: [{ title: 'NEW NOW' }, { title: 'GİYİM' }, { title: 'PROMOSYON' }]
   },
   'HOME': {
     type: 'simple',
-    items: [
-      { title: 'YATAK ODASI' },
-      { title: 'MUTFAK' },
-      { title: 'BANYO' },
-    ]
+    items: [{ title: 'YATAK ODASI' }, { title: 'MUTFAK' }, { title: 'BANYO' }]
   }
 }
 
+// --- COMPUTED (HESAPLANMIŞ VERİ) ---
+// Aktif menüye göre doğru datayı seçer
 const currentMenuData = computed(() => {
-  // activeMenu null ise (menü kapalıysa) null döndür.
-  if (!activeMenu.value) {
-    return null
-  }
-  // Değilse, menuData'dan ilgili kategorinin verisini bul ve döndür.
+  if (!activeMenu.value) return null
   return menuData[activeMenu.value]
 })
-
 </script>
 
-
 <style scoped>
-
+/* KAPSAYICI */
 .header-wrapper {
   position: relative;
 }
 
-/* scoped: Bu Vue'ye özeldir. 
-   Anlamı: Buradaki stiller SADECE bu dosyayı etkilesin, Footer'ı bozmasın. */
-
-/* .header: <header class="header"> ETİKETİ */
+/* HEADER GENEL */
 .header {
-  /* position: sticky; 
-     Anlamı: Normalde sayfayla birlikte kayar, 
-     ama 'top: 0' (en tepeye) ulaştığı an oraya YAPIŞIR (sticky) ve sabit kalır. */
-  position: sticky;
+  position: sticky; /* Sayfa kayınca tepeye yapış */
   top: 0; 
   background-color: white; 
   border-bottom: 1px solid #e5e5e5; 
-  
-  /* z-index: Katman sırasıdır. 
-     Sayfadaki diğer elementlerin (resimler vb.) header'ın ÜSTÜNE çıkmasını engeller. 
-     50, "çoğu şeyden üstte olsun" demek için güvenli bir sayıdır. */
-  z-index: 50; 
+  z-index: 50; /* Her şeyin üstünde olsun */
 }
 
-/* .header-container: Ortadaki kapsayıcımızı seçiyoruz */
+/* HEADER İÇ DÜZEN */
 .header-container {
-  max-width: 1400px; /* "Genişliğin 1400px'i geçmesin" */
-  margin: 0 auto; /* "Üst/alt boşluk 0, sağ/sol boşluk OTOMATİK olsun." 
-                     Bu, kutuyu yatayda mükemmel ortalar. */
-  padding: 18px 24px;   /* "Üstten/Alttan 18px, Sağdan/Soldan 24px boşluk bırak." */
-  
-  /* --- FLEXBOX BAŞLANGICI --- */
-  /* display: flex; 
-     Bu, CSS'teki en önemli özelliklerden biridir.
-     "İçimdeki doğrudan çocukları (.nav-left, .logo, .nav-right) 
-     al ve bir sıra halinde YAN YANA diz." */
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 18px 24px;
   display: flex;
-  
-  /* align-items: center; 
-     "Yan yana dizdiğim o çocukları DİKEYDE ortala." */
   align-items: center;
-  
-  /* justify-content: space-between; 
-     "Onları YATAYDA hizala. 
-     'space-between' (araya boşluk koy) demek: 
-     İlk çocuğu (.nav-left) en sola, 
-     son çocuğu (.nav-right) en sağa yasla 
-     ve kalan tüm boşluğu ortadaki çocukların (.logo) etrafına eşit dağıt." */
-  justify-content: space-between;
-  
-  /* --- POZİSYONLAMA BAŞLANGICI  --- */
-  /* Burası .logo için bir "Çapa" (Anchor) görevi görecek.Yani headera diyecekki sen yerinden 
-  kıpırdama ama .logo senden kaçarsa sana göre hareket etsin. yanni headercontainer hareket etmez  */
-  position: relative; 
+  justify-content: space-between; /* Sol ve Sağ menüyü kenarlara it */
+  position: relative; /* Logo buna göre ortalanacak */
 }
 
-/* Sol ve Sağ Menü Linkleri */
+/* --- LOGO ORTALAMA SİHİRBAZI --- */
+.logo-link {
+  position: absolute; /* Akıştan bağımsız */
+  left: 50%;          /* Ekranın tam ortasına git */
+  transform: translateX(-50%); /* Kendi genişliğinin yarısı kadar geri gel (Tam Merkez) */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 60; /* Linklerin üstünde dursun */
+}
+
+/* --- MENÜ LİNKLERİ GENEL --- */
 .nav-left a,
 .nav-right a {
   text-decoration: none;
   color: black; 
   font-size: 11.5px;
   font-weight: 500;
-  margin-right: 20px; /* Linkler arası boşluk */
-  letter-spacing: 0.5px; /* Harf arası boşluk */
-  display: inline-block; 
-}
-
-/* Son linkin sağındaki boşluğu */
-.nav-left a:last-child,
-.nav-right a:last-child {
-  margin-right: 10;
-}
-/* Kullanıcı menüsünü tutan kapsayıcı */
-.user-menu-wrapper {
-  position: relative; /* UserMenu buna göre hizalansın diye */
+  margin-right: 20px;
+  letter-spacing: 0.5px;
   display: inline-block;
-  margin-right: 20px; /* Linkler arası boşluk */
-  height: 100%; /* Header yüksekliği kadar */
-  padding-top: 5px; /* Hizalama ayarı */
+  position: relative; /* Alt çizgi buna göre konumlanacak */
+  padding-bottom: 2px; /* Çizgi ile yazı arası boşluk */
 }
 
-/* Mouse üzerine gelince 'Giriş Yap'ın altını çiz */
+/* --- SOL MENÜ ALT ÇİZGİ EFEKTİ --- */
+.nav-left a::after {
+  content: '';
+  position: absolute;
+  width: 0; /* Başlangıçta çizgi yok */
+  height: 1px; /* İnce çizgi */
+  bottom: 0; /* En altta */
+  left: 0;
+  background-color: black; /* Siyah */
+  transition: width 0.3s ease; /* Animasyonlu uzama */
+}
+
+/* Mouse üzerine gelince çizgi %100 olsun */
+.nav-left a:hover::after {
+  width: 100%;
+}
+
+/* Eğer o sayfadaysak (Aktif Link) çizgi hep %100 kalsın */
+.nav-left a.router-link-active::after {
+  width: 100%;
+}
+
+/* --- SAĞ MENÜ AYARLARI --- */
+.nav-right a:last-child {
+  margin-right: 0;
+}
+
+.user-menu-wrapper {
+  position: relative;
+  display: inline-block;
+  margin-right: 20px;
+  height: 100%;
+}
+
+/* Giriş yap linkinin altı çizilmesi (Mango stili) */
 .user-menu-wrapper:hover .login-link {
   text-decoration: underline;
   text-underline-offset: 4px;
 }
 
-/* Header içindeki a etiketinin marginini sıfırlıyoruz çünkü wrapper'a margin verdik */
 .user-menu-wrapper a {
-  margin-right: 0; 
+  margin-right: 0;
 }
-
 </style>

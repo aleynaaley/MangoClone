@@ -48,36 +48,21 @@ defineProps({
 
 <style scoped>
 .cart-item {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .image-container {
   position: relative;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .product-image {
-  width: 100%; /* Kapsayıcısına sığsın */
+  width: 50%; /* Kapsayıcısına sığsın */
   height: auto;
   display: block;
 }
 
-/* Resmin üzerindeki X butonu */
-.remove-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: white;
-  border: none;
-  width: 30px;
-  height: 30px;
-  font-size: 16px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #333;
-}
+
 
 .product-info {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;

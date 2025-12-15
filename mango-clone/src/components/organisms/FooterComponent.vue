@@ -141,14 +141,6 @@ import SocialGroup from '../molecules/SocialGroup.vue'
   /* Alt çizgiyi kaldırdık */
 }
 
-.social-links a {
-  color: black;
-  text-decoration: none;
-  font-size: 11px;
-  font-weight: 500;
-  margin: 0 10px;
-  letter-spacing: 0.5px;
-}
 
 /* .footer-links-grid: Dört sütunlu link alanını seçiyoruz */
 .footer-links-grid {
