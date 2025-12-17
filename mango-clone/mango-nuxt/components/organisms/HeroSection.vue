@@ -69,6 +69,7 @@ defineProps({
 }
 
 .hero-subtitle {
+   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 14px;
   font-weight: 400;
   margin-bottom: 30px;
@@ -86,6 +87,7 @@ defineProps({
   color: inherit; /* Yazı rengini ebeveyninden al */
   border: 1px solid currentColor; /* Kenarlığı yazı rengiyle aynı yap */
   padding: 12px 30px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 13px;
 }
 

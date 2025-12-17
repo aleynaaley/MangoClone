@@ -31,21 +31,10 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { useProducts } from '@/composables/useProducts'
 
-// Import satırını kaldırdık. Nuxt otomatik bulacak.
-// import ProductCard from ... (GEREK YOK)
-
-const products = ref([
-  { id: 1, title: 'Çizgili triko kazak', price: '2.299,99 TL', hasLargeSize: false, image: '/images/kadın5.jpeg' },
-  { id: 2, title: 'Düşük belli barrel jean', price: '2.299,99 TL', hasLargeSize: false, image: '/images/kadın6.jpeg'},
-  { id: 3, title: 'Geniş kesimli cepli gömlek', price: '2.299,99 TL', hasLargeSize: false, image: '/images/kadın7.jpeg' },
-  { id: 4, title: 'Kemerli Manteco yünlü palto', price: '8.999,99 TL', hasLargeSize: true, image: '/images/kadın8.jpeg' },
-  { id: 5, title: 'Kalıplı yün palto', price: '8.999,99 TL', hasLargeSize: false, image: '/images/kadın12.jpeg' },
-  { id: 6, title: 'Diplomatik çizgili çift düğmeli kumaş blazer ceket', price: '4.999,99 TL', hasLargeSize: false, image: '/images/kadın13.jpeg'},
-  { id: 7, title: 'Saten dantel etek', price: '1.999,99 TL', hasLargeSize: false, image: '/images/kadın14.jpeg' },
-  { id: 8, title: 'Godeli deri görünümlü etek', price: '2.999,99 TL', hasLargeSize: true, image: '/images/kadın15.jpeg' },
-])
+// Ürünleri artık elle yazmıyoruz, merkezden çekiyoruz!
+const { products } = useProducts()
 </script>
 
 <style scoped>

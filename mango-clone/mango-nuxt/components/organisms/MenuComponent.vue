@@ -68,11 +68,9 @@ defineProps({
   left: 0;
   width: 416px; 
   height: calc(100vh - 53px); 
-  
   background-color: white;
   box-shadow: 4px 0 12px rgba(0,0,0,0.05); 
   border-right: 1px solid #f5f5f5;
-  
   z-index: 40;
   overflow-y: auto; 
 }
@@ -96,6 +94,7 @@ defineProps({
 .menu-list a {
   text-decoration: none;
   color: black;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 12px; 
   font-weight: 400; 
   letter-spacing: 0.3px;
