@@ -36,13 +36,15 @@
           </button>
 
           <button class="favorite-btn" @click="wishlistStore.toggleWishlist(product)">
-            <svg width="20" height="20" viewBox="0 0 24 24"
-              :fill="wishlistStore.isInWishlist(product.id) ? 'white' : 'none'" stroke="white" stroke-width="2">
-              <path
-                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
-              </path>
-            </svg>
-          </button>
+  <svg 
+    width="20" height="20" viewBox="0 0 24 24" 
+    :fill="isFavorite ? 'white' : 'none'" 
+    stroke="white" 
+    stroke-width="2"
+  >
+    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+  </svg>
+</button>
 
         </div>
 
@@ -96,6 +98,11 @@ const handleAddToCart = () => {
     alert('Ürün sepete eklendi!')
   }
 }
+const isFavorite = computed(() => {
+  if (!product.value) return false
+  return wishlistStore.isInWishlist(product.value.id)
+})
+
 </script>
 
 <style scoped>
@@ -253,15 +260,13 @@ const handleAddToCart = () => {
 }
 
 .favorite-btn {
-  width: 45px;
-  /* Butonla aynı yükseklikte kare */
-  border: 1px solid black;
-  background: white;
-  font-size: 20px;
-  cursor: pointer;
+  width: 50px;
+  background-color: black; /* Arka plan hep SİYAH */
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .view-look-btn {
