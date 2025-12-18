@@ -1,6 +1,19 @@
-// composables/useProducts.ts
 import { ref } from 'vue'
-import type { Product } from '@/types'
+
+export interface Product {
+  id: number;
+  title: string;
+  price: number;
+  formattedPrice: string;
+  hasLargeSize: boolean;
+  // Ana resim (Thumbnail için)
+  image: string;
+
+  images: string[];
+  description: string;
+  colors: string[];
+  sizes: string[];
+}
 
 export const useProducts = () => {
   const products = ref<Product[]>([
@@ -10,26 +23,38 @@ export const useProducts = () => {
       price: 2299.99, 
       formattedPrice: '2.299,99 TL',
       hasLargeSize: false, 
-      // DİKKAT: Dosya adını 'kadin5.jpeg' yaptıysan burayı da düzelt!
-      image: '/images/kadın5.jpeg', 
-      description: 'Yumuşak dokulu, çizgili desenli triko kazak.',
-      colors: ['Siyah/Beyaz'],
-      sizes: ['XS', 'S', 'M', 'L']
+      image: '/images/kadın5.jpeg', // Ana resim
+      // YENİ: Bu ürünün detay sayfasında görünecek tüm resimler.
+      // Bilgisayarındaki dosya isimlerinin aynısını buraya yazmalısın.
+      images: [
+        '/images/kadın5.jpeg',
+        '/images/kadın9.jpeg', // Örnek dosya isimleri
+        '/images/kadın10.jpeg',
+        '/images/kadın11.jpeg'
+      ],
+      description: 'Orta kalınlıkta çizgili triko kumaştan üretilmiş bu tasarım, kutu yaka ve uzun kollu olarak sunulmaktadır.',
+      colors: ['Gri'], // Orijinaldeki gibi tek renk yaptım
+      sizes: ['S', 'M', 'L']
     },
-    // ... Diğer ürünlerin ...
+    { 
+      id: 2, 
+      title: 'Düşük belli barrel jean', 
+      price: 2299.99, 
+      formattedPrice: '2.299,99 TL',
+      hasLargeSize: false, 
+      image: '/images/kadın6.jpeg', 
+      // Diğer ürünler için de en azından ana resimlerini diziye ekleyelim ki hata vermesinler.
+      images: ['/images/kadın6.jpeg'], 
+      description: 'Modern kesim, düşük belli jean pantolon.',
+      colors: ['Mavi'],
+      sizes: ['34', '36', '38', '40']
+    },
+    // ... Diğer ürünlerin (hepsine 'images' dizisini eklemeyi unutma) ...
   ])
 
   const getProductById = (id: number | string) => {
-    // Debug için konsola yazdıralım (Tarayıcıda F12 -> Console'da göreceksin)
-    console.log("Aranan ID:", id)
-    
-    if (!id) return undefined
-    
-    // String/Number fark etmeksizin bulması için "==" kullanıyoruz
-    const found = products.value.find(p => p.id == id)
-    
-    console.log("Bulunan Ürün:", found)
-    return found
+    if (!id) return undefined;
+    return products.value.find(p => String(p.id) === String(id));
   }
 
   return {

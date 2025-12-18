@@ -24,7 +24,22 @@ export const useCartStore = defineStore('cart', {
     
     removeFromCart(productId: number) {
       this.items = this.items.filter(item => item.id !== productId)
-    }
+    },
+
+    increaseQuantity(productId: number) {
+      const item = this.items.find(i => i.id === productId)
+      if (item) {
+        item.quantity++
+      }
+    },
+
+    decreaseQuantity(productId: number) {
+      const item = this.items.find(i => i.id === productId)
+      // Adet 1'den büyükse azalt, yoksa hiçbir şey yapma (silmek için zaten X var)
+      if (item && item.quantity > 1) {
+        item.quantity--
+      }
+    },
   },
 
   getters: {

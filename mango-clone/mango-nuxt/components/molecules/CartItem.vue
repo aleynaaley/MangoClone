@@ -1,52 +1,60 @@
 <template>
   <div class="cart-item">
-    
+
     <div class="image-container">
-      <img :src="image" :alt="title" class="product-image" />
+      <NuxtLink :to="`/product/${item.id}`">
+        <img :src="item.image" :alt="item.title" class="product-image" />
+      </NuxtLink>
       <button class="remove-btn" @click="$emit('remove')">✕</button>
     </div>
 
     <div class="product-info">
-      
+
       <div class="info-top">
-        <h3 class="product-title">{{ title }}</h3>
-        <button class="wishlist-icon">♡</button>
+        <h3 class="product-title">{{ item.title }}</h3>
+
+        <button class="wishlist-icon" @click="wishlistStore.toggleWishlist(item)">
+          {{ wishlistStore.isInWishlist(item.id) ? '♥' : '♡' }}
+        </button>
+
       </div>
-      
-      <p class="product-price">{{ price }}</p>
+
+      <p class="product-price">{{ item.formattedPrice }}</p>
 
       <div class="controls">
         <div class="quantity-selector">
-          <button class="qty-btn">−</button>
-          <span class="qty-val">{{ quantity }}</span>
-          <button class="qty-btn">+</button>
+          <button class="qty-btn" @click="$emit('decrease')">−</button>
+
+          <span class="qty-val">{{ item.quantity }}</span>
+
+          <button class="qty-btn" @click="$emit('increase')">+</button>
         </div>
 
         <span class="separator">|</span>
-        <span class="option">{{ size }}</span>
+        <span class="option">{{ item.sizes && item.sizes[0] ? item.sizes[0] : 'Std' }}</span>
         <span class="separator">|</span>
-        <span class="option">{{ color }}</span>
+        <span class="option">{{ item.colors && item.colors[0] ? item.colors[0] : 'Std' }}</span>
       </div>
     </div>
 
   </div>
 </template>
 
-<script setup>
-defineProps({
-  image: String,
-  title: String,
-  price: String,
-  size: String,
-  color: String,
-  quantity: {
-    type: Number,
-    default: 1    
-  }
-})
+<script setup lang="ts">
+import type { CartItem } from '@/types'
+import { useWishlistStore } from '@/stores/wishlist'
+const wishlistStore = useWishlistStore()
+
+defineProps<{
+  item: CartItem
+}>()
+
+// 'remove' vardı, yanına 'increase' ve 'decrease' ekledik
+defineEmits(['remove', 'increase', 'decrease'])
 </script>
 
 <style scoped>
+/* SENİN CSS KODLARIN AYNEN KORUNDU */
 .cart-item {
   width: 100%;
   margin-bottom: 30px;
@@ -54,22 +62,18 @@ defineProps({
   color: #000;
 }
 
-/* --- RESİM AYARLARI --- */
 .image-container {
   position: relative;
-  /* DÜZELTME 1: Kapsayıcının genişliğini %50 yapıyoruz */
-  width: 50%; 
+  width: 50%;
   margin-bottom: 15px;
 }
 
 .product-image {
-  /* DÜZELTME 2: Resim kendi kapsayıcısının (%50'lik alanın) tamamını kaplasın */
-  width: 100%; 
+  width: 100%;
   height: auto;
   display: block;
 }
 
-/* --- SİLME BUTONU --- */
 .remove-btn {
   position: absolute;
   top: 10px;
@@ -87,16 +91,13 @@ defineProps({
   z-index: 2;
 }
 
-/* --- YAZI ALANI --- */
 .product-info {
-  /* DÜZELTME 3: Bilgi alanının genişliğini de resimle aynı (%50) yapıyoruz */
   width: 50%;
-  padding-right: 5px; /* Sağdaki boşluk */
+  padding-right: 5px;
 }
 
 .info-top {
   display: flex;
-  /* Başlık sola, Kalp sağa yaslanır. Alan %50 olduğu için kalp resmin sağ kenarında durur */
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 5px;
@@ -126,7 +127,6 @@ defineProps({
   margin: 0 0 20px 0;
 }
 
-/* --- SEÇENEKLER --- */
 .controls {
   display: flex;
   align-items: center;

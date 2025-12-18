@@ -26,7 +26,7 @@
             <UserMenu v-show="isUserMenuOpen" />
           </div>
 
-          <NuxtLink to="/favorites">FAVORİLERİM</NuxtLink>
+          <NuxtLink to="/wishlist">FAVORİLERİM ({{ wishlistStore.totalItems }})</NuxtLink>
           <NuxtLink to="/cart">SEPET</NuxtLink>
         </nav>
 
@@ -50,7 +50,12 @@ import { ref, computed } from 'vue'
 import MenuComponent from './MenuComponent.vue' // Bu dosyanın Header ile aynı klasörde olduğundan emin ol!
 import SiteLogo from '../atoms/SiteLogo.vue'    // components/atoms/SiteLogo.vue var mı?
 import UserMenu from '../molecules/UserMenu.vue' // components/molecules/UserMenu.vue var mı?
+import { useWishlistStore } from '@/stores/wishlist'
+import { useCartStore } from '@/stores/cart' // Sepet sayısını da gösteriyorsan bu da lazım
 
+
+const wishlistStore = useWishlistStore()
+const cartStore = useCartStore()
 // --- STATE ---
 const activeMenu = ref(null)
 const isUserMenuOpen = ref(false)
