@@ -26,8 +26,8 @@
             <UserMenu v-show="isUserMenuOpen" />
           </div>
 
-          <NuxtLink to="/wishlist">FAVORİLERİM ({{ wishlistStore.totalItems }})</NuxtLink>
-          <NuxtLink to="/cart">SEPET</NuxtLink>
+          <NuxtLink to="/wishlist" class="nav-link">FAVORİLERİM</NuxtLink>
+          <NuxtLink to="/cart" class="nav-link">SEPET ({{ cartStore.totalItems }})</NuxtLink>
         </nav>
 
       </div>
