@@ -18,6 +18,13 @@ export interface CartItem extends Product {
   quantity: number;
 }
 
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+  token: string; // Giriş yaptığını kanıtlayan anahtar
+}
+
 // 3. Interface: Menü Linkleri (Header için)
 export interface MenuLink {
   title: string;
@@ -31,4 +38,16 @@ export interface User {
   email: string;
   fullName: string;
   isAuthenticated: boolean;
+}
+
+export interface Order {
+  userId?: string; // Giriş yapmışsa ID'si
+  customerName: string;
+  customerEmail: string;
+  address: string;
+  city: string;
+  items: any[]; // Sepetteki ürünler
+  totalAmount: number;
+  status: 'pending' | 'shipped'; // Sipariş durumu
+  createdAt: Date;
 }

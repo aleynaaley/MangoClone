@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <OrganismsHeaderComponent /> 
+  <NuxtLayout>
     <NuxtPage />
-    <OrganismsFooterComponent />
-  </div>
+  </NuxtLayout>
 </template>

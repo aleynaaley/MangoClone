@@ -1,7 +1,7 @@
 <template>
   <div class="new-now-page">
     <div class="page-header">
-      <h1 class="page-title">WHAT'S NEW</h1>
+      <h2 class="page-title">WHAT'S NEW</h2>
     </div>
 
     <div class="product-grid">
@@ -23,10 +23,15 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue'
 import { useProducts } from '@/composables/useProducts'
 
-// Verileri çek
-const { products } = useProducts()
+const { products, fetchProducts } = useProducts()
+
+onMounted(() => {
+  // Sadece "NEW NOW" etiketli olanları getir diyoruz
+  fetchProducts('NEW NOW') 
+})
 </script>
 
 <style scoped>

@@ -1,18 +1,23 @@
 <template>
   <div class="cart-view">
-
+    
     <h1 class="page-title">SEPET ({{ cartStore.totalItems }})</h1>
 
     <div v-if="cartStore.items.length > 0" class="cart-layout">
-
+      
       <div class="cart-items-column">
-        <CartItem v-for="item in cartStore.items" :key="item.id" :item="item"
-          @remove="cartStore.removeFromCart(item.id)" @increase="cartStore.increaseQuantity(item.id)"
-          @decrease="cartStore.decreaseQuantity(item.id)" />
+        <CartItem 
+          v-for="item in cartStore.items"
+          :key="item.id"
+          :item="item"
+          @remove="cartStore.removeFromCart(item.id)"
+          @increase="cartStore.increaseQuantity(item.id)"
+          @decrease="cartStore.decreaseQuantity(item.id)"
+        />
       </div>
 
       <div class="cart-summary-column">
-
+        
         <div class="summary-row">
           <span>Ara toplam</span>
           <span>{{ cartStore.totalPrice.toFixed(2) }} TL</span>
@@ -21,14 +26,14 @@
           <span>Teslimat</span>
           <span>Ücretsiz</span>
         </div>
-
+        
         <div class="summary-total">
           <span>TOPLAM</span>
           <span>{{ cartStore.totalPrice.toFixed(2) }} TL</span>
         </div>
         <p class="tax-info">Vergiler dahildir</p>
 
-        <BaseButton class="checkout-btn">SATIN AL</BaseButton>
+        <BaseButton @click="handleCheckout" class="checkout-btn">SATIN AL</BaseButton>
 
         <div class="promo-code">
           <span>Promosyon kodunuz var mı?</span>
@@ -59,22 +64,35 @@
 </template>
 
 <script setup lang="ts">
-// Nuxt componentleri otomatik import eder ama el ile import etmek istersen:
+import { useRouter } from 'vue-router'
 import CartItem from '@/components/molecules/CartItem.vue'
-// BaseButton eğer atoms klasöründeyse Nuxt onu <AtomsBaseButton> diye de bulabilir
-// ama senin kodundaki gibi manuel import da çalışır.
 import BaseButton from '@/components/atoms/BaseButton.vue'
-
 import { useCartStore } from '@/stores/cart'
+import { useAuthStore } from '@/stores/auth'
 
-// Store Bağlantısı
+const router = useRouter()
 const cartStore = useCartStore()
+const authStore = useAuthStore()
+
+// YENİ EKLENEN FONKSİYON
+const handleCheckout = () => {
+  // 1. Giriş yapmış mı kontrol et
+  if (!authStore.isAuthenticated) {
+    const confirmLogin = confirm("Ödeme yapmak için giriş yapmalısınız. Giriş sayfasına gitmek ister misiniz?")
+    if (confirmLogin) {
+      router.push('/login')
+    }
+  } else {
+    // 2. Giriş yapmışsa Checkout sayfasına gönder
+    router.push('/checkout')
+  }
+}
 </script>
 
 <style scoped>
-/* SENİN CSS KODLARIN AYNEN KORUNDU */
+/* SENİN ESKİ STİLLERİN (Değişmedi) */
 .cart-view {
-  padding: 40px 60px;
+  padding: 40px 60px; 
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   max-width: 1400px;
   margin: 0 auto;
@@ -95,11 +113,11 @@ const cartStore = useCartStore()
 }
 
 .cart-items-column {
-  width: 55%;
+  width: 55%; 
 }
 
 .cart-summary-column {
-  width: 35%;
+  width: 35%; 
 }
 
 .summary-row {
@@ -144,7 +162,7 @@ const cartStore = useCartStore()
   cursor: pointer;
   margin-bottom: 40px;
   padding-bottom: 10px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #eee; 
 }
 
 .info-checks .check-item {
@@ -175,16 +193,12 @@ const cartStore = useCartStore()
   .cart-view {
     padding: 20px;
   }
-
   .cart-layout {
     flex-direction: column;
   }
-
-  .cart-items-column,
-  .cart-summary-column {
+  .cart-items-column, .cart-summary-column {
     width: 100%;
   }
-
   .cart-summary-column {
     margin-top: 40px;
   }

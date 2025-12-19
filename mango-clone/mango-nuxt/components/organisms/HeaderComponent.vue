@@ -19,12 +19,18 @@
         </NuxtLink>
 
         <nav class="nav-right" @mouseenter="activeMenu = null">
-          <a href="#" @click.prevent>ARA</a>
+          <a href="#" @click.prevent class="nav-link">ARA</a>
 
-          <div class="user-menu-wrapper" @mouseenter="isUserMenuOpen = true" @mouseleave="isUserMenuOpen = false">
-            <NuxtLink to="/login" class="login-link">GİRİŞ YAP</NuxtLink>
-            <UserMenu v-show="isUserMenuOpen" />
-          </div>
+          <template v-if="!authStore.isAuthenticated">
+            <NuxtLink to="/login" class="nav-link">GİRİŞ YAP</NuxtLink>
+          </template>
+
+          <template v-else>
+            <div class="user-menu">
+              <span class="user-name">{{ authStore.user?.name }}</span>
+              <button @click="authStore.logout()" class="logout-btn">(ÇIKIŞ)</button>
+            </div>
+          </template>
 
           <NuxtLink to="/wishlist" class="nav-link">FAVORİLERİM</NuxtLink>
           <NuxtLink to="/cart" class="nav-link">SEPET ({{ cartStore.totalItems }})</NuxtLink>
@@ -52,8 +58,9 @@ import SiteLogo from '../atoms/SiteLogo.vue'    // components/atoms/SiteLogo.vue
 import UserMenu from '../molecules/UserMenu.vue' // components/molecules/UserMenu.vue var mı?
 import { useWishlistStore } from '@/stores/wishlist'
 import { useCartStore } from '@/stores/cart' // Sepet sayısını da gösteriyorsan bu da lazım
+import { useAuthStore } from '@/stores/auth'
 
-
+const authStore = useAuthStore()
 const wishlistStore = useWishlistStore()
 const cartStore = useCartStore()
 // --- STATE ---
@@ -208,4 +215,37 @@ const currentMenuData = computed(() => {
 .user-menu-wrapper a {
   margin-right: 0;
 }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* menüler arası boşluk */
+}
+
+.user-menu {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 11px;
+  
+  /* DEĞİŞİKLİK BURADA: */
+  font-weight: 700; /* 500 yerine 700 (veya bold) yaptık ki kalın olsun */
+  letter-spacing: 1px; /* Harfler arası boşluk (Diğer linkler gibi) */
+  color: black;
+  
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.logout-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 10px; /* İsimden bir tık küçük */
+  text-decoration: underline;
+  color: #000000; /* Tam siyah değil, koyu gri */
+  padding: 0;
+  margin-left: 2px;
+}
+
 </style>
+

@@ -1,64 +1,124 @@
 import { ref } from 'vue'
+import {
+  collection,
+  getDocs,
+  doc,
+  getDoc,
+  query,
+  where
+} from 'firebase/firestore'
+import { useNuxtApp } from '#app'
 
 export interface Product {
-  id: number;
+  id: string;
   title: string;
   price: number;
   formattedPrice: string;
   hasLargeSize: boolean;
-  // Ana resim (Thumbnail için)
   image: string;
-
   images: string[];
   description: string;
   colors: string[];
   sizes: string[];
+  tag?: string;
 }
 
 export const useProducts = () => {
-  const products = ref<Product[]>([
-    { 
-      id: 1, 
-      title: 'Çizgili triko kazak', 
-      price: 2299.99, 
-      formattedPrice: '2.299,99 TL',
-      hasLargeSize: false, 
-      image: '/images/kadın5.jpeg', // Ana resim
-      // YENİ: Bu ürünün detay sayfasında görünecek tüm resimler.
-      // Bilgisayarındaki dosya isimlerinin aynısını buraya yazmalısın.
-      images: [
-        '/images/kadın5.jpeg',
-        '/images/kadın9.jpeg', // Örnek dosya isimleri
-        '/images/kadın10.jpeg',
-        '/images/kadın11.jpeg'
-      ],
-      description: 'Orta kalınlıkta çizgili triko kumaştan üretilmiş bu tasarım, kutu yaka ve uzun kollu olarak sunulmaktadır.',
-      colors: ['Gri'], // Orijinaldeki gibi tek renk yaptım
-      sizes: ['S', 'M', 'L']
-    },
-    { 
-      id: 2, 
-      title: 'Düşük belli barrel jean', 
-      price: 2299.99, 
-      formattedPrice: '2.299,99 TL',
-      hasLargeSize: false, 
-      image: '/images/kadın6.jpeg', 
-      // Diğer ürünler için de en azından ana resimlerini diziye ekleyelim ki hata vermesinler.
-      images: ['/images/kadın6.jpeg'], 
-      description: 'Modern kesim, düşük belli jean pantolon.',
-      colors: ['Mavi'],
-      sizes: ['34', '36', '38', '40']
-    },
-    // ... Diğer ürünlerin (hepsine 'images' dizisini eklemeyi unutma) ...
-  ])
+  const products = ref<Product[]>([])
+  const { $db } = useNuxtApp()
 
-  const getProductById = (id: number | string) => {
-    if (!id) return undefined;
-    return products.value.find(p => String(p.id) === String(id));
+  // --- YARDIMCI FONKSİYON: RESİMLERİ BİRLEŞTİRME ---
+  // Bu fonksiyon; image, image2, image3 alanlarını tek bir dizi yapar.
+  const processImages = (data: any) => {
+    const allImages: string[] = []
+
+    // 1. Ana resim varsa ekle
+    if (data.image) allImages.push(data.image)
+
+    // 2. image2 varsa ekle
+    if (data.image2) allImages.push(data.image2)
+
+    // 3. image3 varsa ekle 
+    if (data.image3) allImages.push(data.image3)
+
+    // 4. Eğer zaten 'images' diye bir dizi varsa onları da ekle
+    if (data.images && Array.isArray(data.images)) {
+      // Tekrar edenleri eklememek için kontrol
+      allImages.push(...data.images)
+    }
+
+
+    return [...new Set(allImages)]
+  }
+
+  // --- 1. ÜRÜNLERİ LİSTELEME ---
+  const fetchProducts = async (filterTag: string | null = null) => {
+    try {
+      const productsRef = collection($db, 'products')
+      let q;
+
+      if (filterTag) {
+        q = query(productsRef, where('tag', '==', filterTag))
+      } else {
+        q = productsRef
+      }
+
+      const querySnapshot = await getDocs(q)
+
+      products.value = querySnapshot.docs.map(doc => {
+        const data = doc.data()
+        return {
+          id: doc.id,
+          title: data.title,
+          price: Number(data.price) || 0,
+
+          formattedPrice: `${data.price} TL`,
+          hasLargeSize: data.hasLargeSize || false,
+          image: data.image,
+
+
+          images: processImages(data),
+
+          description: data.description || '',
+          colors: data.colors || [],
+          sizes: data.sizes || [],
+          tag: data.tag || ''
+        } as Product
+      })
+    } catch (error) {
+      console.error("Ürünler çekilirken hata oluştu:", error)
+    }
+  }
+
+  // --- 2. TEK ÜRÜN DETAYI ---
+  const getProductById = async (id: string) => {
+    try {
+      const docRef = doc($db, "products", id)
+      const docSnap = await getDoc(docRef)
+
+      if (docSnap.exists()) {
+        const data = docSnap.data()
+        return {
+          id: docSnap.id,
+          ...data,
+          price: Number(data.price) || 0,
+
+          formattedPrice: `${data.price} TL`,
+
+
+          images: processImages(data)
+
+        } as Product
+      }
+    } catch (error) {
+      console.error("Ürün detayı hatası:", error)
+    }
+    return undefined
   }
 
   return {
     products,
+    fetchProducts,
     getProductById
   }
 }
