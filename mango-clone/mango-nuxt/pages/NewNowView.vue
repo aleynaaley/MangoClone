@@ -1,12 +1,16 @@
 <template>
   <div class="new-now-page">
     <div class="page-header">
-      <h2 class="page-title">WHAT'S NEW</h2>
+      <h1 class="page-title">WHAT'S NEW</h1>
     </div>
 
-    <div class="product-grid">
+    <div v-if="productStore.loading" style="text-align:center; padding:50px;">
+      Yükleniyor...
+    </div>
+
+    <div v-else class="product-grid">
       <NuxtLink 
-        v-for="product in products" 
+        v-for="product in productStore.products" 
         :key="product.id"
         :to="`/product/${product.id}`" 
         style="text-decoration: none; color: inherit;"
@@ -24,18 +28,19 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import { useProducts } from '@/composables/useProducts'
+// Composable yerine Store import ediyoruz
+import { useProductStore } from '@/stores/products' // Dosya adı sende products.ts ise
 
-const { products, fetchProducts } = useProducts()
+const productStore = useProductStore()
 
 onMounted(() => {
-  // Sadece "NEW NOW" etiketli olanları getir diyoruz
-  fetchProducts('NEW NOW') 
+  // Store içindeki action'ı çağırıyoruz
+  productStore.fetchProducts('NEW NOW')
 })
 </script>
 
 <style scoped>
-.new-now-page { padding: 20px 40px; }
+.new-now-page { padding: 20px 40px; margin-top: 20px; } /* Header altında kalsın diye margin */
 .product-grid { 
   display: grid; 
   grid-template-columns: repeat(4, 1fr); 

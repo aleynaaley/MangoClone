@@ -1,7 +1,7 @@
 <template>
   <div class="product-detail-page">
 
-    <div v-if="loading" class="loading-state">
+    <div v-if="productStore.loading" class="loading-state">
       <div class="spinner"></div>
       <p>Ürün detayları yükleniyor...</p>
     </div>
@@ -83,30 +83,30 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, computed } from 'vue'
+import { onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { useProducts } from '@/composables/useProducts'
 
-// --- STORE IMPORTS ---
-// Eğer bu dosya isimlerin farklıysa (örn: cartStore.ts) burayı düzeltmelisin.
-import { useCartStore } from '@/stores/cart' 
+// --- YENİ STORE IMPORTLARI ---
+import { useProductStore } from '@/stores/products' // Dosya adın products.ts ise böyle kalsın
+import { useCartStore } from '@/stores/cart'
 import { useWishlistStore } from '@/stores/wishlist'
 
 const route = useRoute()
-const { getProductById } = useProducts()
 
-// Store'ları başlatıyoruz
+// Store'ları çağırıyoruz
+const productStore = useProductStore()
 const cartStore = useCartStore()
 const wishlistStore = useWishlistStore()
 
-const product = ref(null)
-const loading = ref(true)
+// --- KRİTİK NOKTA: Reactivity Bağlantısı ---
+// Template içinde "product" diye kullandığımız değişkeni
+// Store'daki "selectedProduct" verisine bağlıyoruz.
+const product = computed(() => productStore.selectedProduct)
 
-
+// Favori kontrolü (Store üzerinden)
 const isFavorite = computed(() => {
   if (!product.value) return false;
- 
-  return wishlistStore.items.some((item: any) => item.id === product.value.id)
+  return wishlistStore.isInWishlist(product.value.id)
 })
 
 // Favoriye Ekle / Çıkar
@@ -116,30 +116,23 @@ const handleToggleWishlist = () => {
   }
 }
 
-// --- SEPETE EKLEME ---
+// Sepete Ekle
 const handleAddToCart = () => {
   if (product.value) {
     cartStore.addToCart(product.value)
-    alert("Ürün sepete eklendi!") // Şimdilik basit bir uyarı
+    alert("Ürün sepete eklendi!") 
   }
 }
 
-// --- VERİ ÇEKME ---
+// Sayfa açılınca veriyi Store'dan iste
 onMounted(async () => {
   const productId = route.params.id as string
-  try {
-    loading.value = true
-    product.value = await getProductById(productId)
-  } catch (e) {
-    console.error("Hata:", e)
-  } finally {
-    loading.value = false
-  }
+  await productStore.fetchProductById(productId)
 })
 </script>
 
 <style scoped>
-/* YÜKLEME EKRANI İÇİN STİL */
+/* YÜKLEME EKRANI */
 .loading-state {
   display: flex;
   flex-direction: column;
@@ -158,15 +151,11 @@ onMounted(async () => {
 }
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-/* ANA SAYFA DÜZENİ */
+/* CSS'in geri kalanı aynen sende olduğu gibi kalabilir */
 .product-detail-page { max-width: 2000px; margin: 0 auto; padding: 10px 0; }
 .detail-container { display: flex; gap: 40px; align-items: flex-start; padding-left: 10px; }
-
-/* SOL SÜTUN */
 .image-gallery { flex: 1.75; display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
 .gallery-image { width: 100%; height: auto; object-fit: cover; display: block; }
-
-/* SAĞ SÜTUN */
 .product-info { flex: 1; position: sticky; top: 80px; height: fit-content; padding-right: 20px; }
 .product-title { font-size: 16px; font-weight: 600; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.5px; }
 .product-price { font-size: 14px; font-weight: 400; margin-bottom: 30px; }
@@ -178,20 +167,15 @@ onMounted(async () => {
 .size-item { font-size: 14px; cursor: pointer; padding: 2px 0; display: inline-block; font-weight: 600; }
 .size-item:hover { text-decoration: underline; }
 .size-guide-link { font-size: 11px; color: #666; text-decoration: underline; }
-
-/* BUTONLAR */
 .actions { display: flex; gap: 10px; margin-bottom: 10px; }
 .add-to-cart-btn { flex: 1; background-color: black; color: white; padding: 14px; font-size: 12px; font-weight: 600; border: none; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
 .add-to-cart-btn:hover { opacity: 0.9; }
 .favorite-btn { width: 50px; background-color: black; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; }
-
 .view-look-btn { width: 100%; padding: 14px; background: white; border: 1px solid black; font-size: 12px; font-weight: 600; cursor: pointer; text-transform: uppercase; margin-bottom: 30px; }
 .extra-info p { font-size: 11px; margin-bottom: 10px; text-transform: uppercase; font-weight: 500; }
 .desc-title { font-size: 12px; font-weight: 600; text-transform: uppercase; margin-bottom: 10px; border-top: 1px solid #e5e5e5; padding-top: 20px; }
 .product-desc { font-size: 12px; color: #333; line-height: 1.6; }
 .not-found { text-align: center; padding: 50px; }
-
-/* MOBİL */
 @media (max-width: 768px) {
   .detail-container { flex-direction: column; }
   .image-gallery, .product-info { flex: auto; width: 100%; }
