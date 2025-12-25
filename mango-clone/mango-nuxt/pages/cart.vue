@@ -67,6 +67,7 @@
 import { useRouter } from 'vue-router'
 import CartItem from '@/components/molecules/CartItem.vue'
 import BaseButton from '@/components/atoms/BaseButton.vue'
+// Sadece Store import ediliyor, iş mantığı burada YOK.
 import { useCartStore } from '@/stores/cart'
 import { useAuthStore } from '@/stores/auth'
 

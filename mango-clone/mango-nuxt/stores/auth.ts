@@ -5,6 +5,7 @@ import type { User } from '@/types'
 export const useAuthStore = defineStore('auth', () => {
     // Kullanıcı bilgisi (Başta null, yani giriş yapılmamış)
     const user = ref<User | null>(null)
+    // Kullanıcı giriş yapmamışsa null, yapmışsa isim ve email bilgisini tutan reaktif değişkendir.
 
     // Giriş yapılmış mı kontrolü
     const isAuthenticated = computed(() => !!user.value)
@@ -14,7 +15,7 @@ export const useAuthStore = defineStore('auth', () => {
         if (password === '123456') {
             user.value = {
                 id: 1,
-                // BURASI DEĞİŞTİ: Sonuna .toUpperCase() ekledik.
+                // Sonuna .toUpperCase() ekledik.
                 // Artık "test" değil "TEST" olarak kaydedilecek.
                 name: email.split('@')[0].toUpperCase(),
                 email: email,

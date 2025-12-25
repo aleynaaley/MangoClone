@@ -1,6 +1,9 @@
 // types/index.ts
 
-// 1. Interface: Ürün Tipi
+// 1. PRODUCT (ÜRÜN) ARAYÜZÜ
+// Ne işe yarar?: Firebase'deki 'products' tablosundan gelen verinin şablonudur.
+// Kodda bir yere "product." yazdığında VS Code'un sana "price", "title" diye
+// otomatik tamamlamasını sağlayan şey budur.
 export interface Product {
   id: number;
   title: string;
@@ -13,16 +16,18 @@ export interface Product {
   sizes: string[];
 }
 
-// 2. Interface: Sepet Elemanı (Ürüne ek olarak 'adet' bilgisi içerir)
+// 2. CART ITEM (SEPET ÖĞESİ) ARAYÜZÜ
+// Ne işe yarar: Sepette sadece ürünü tutmak yetmez, kaç tane olduğunu da tutmalıyız.
+// Bu yüzden "Ürün Bilgisi" + "Adet" bilgisini birleştiren yeni bir tip ürettik.
 export interface CartItem extends Product {
   quantity: number;
 }
 
 export interface User {
-  id: number;
-  name: string;
+  id: string | number;
+  name: string;      // Ad Soyad
   email: string;
-  token: string; // Giriş yaptığını kanıtlayan anahtar
+  token?: string;    // Giriş anahtarı 
 }
 
 // 3. Interface: Menü Linkleri (Header için)
@@ -30,14 +35,6 @@ export interface MenuLink {
   title: string;
   url: string;
   isActive: boolean;
-}
-
-// 4. Interface: Kullanıcı Bilgisi (Login kısmı için hazırlık)
-export interface User {
-  id: number;
-  email: string;
-  fullName: string;
-  isAuthenticated: boolean;
 }
 
 export interface Order {

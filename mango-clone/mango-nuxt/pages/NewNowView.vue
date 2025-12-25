@@ -28,8 +28,8 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue'
-// Composable yerine Store import ediyoruz
-import { useProductStore } from '@/stores/products' // Dosya adı sende products.ts ise
+//  Store import ediyoruz
+import { useProductStore } from '@/stores/products' // Dosya adı  products.ts olmalı
 
 const productStore = useProductStore()
 

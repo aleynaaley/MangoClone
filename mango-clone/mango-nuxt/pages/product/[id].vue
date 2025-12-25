@@ -86,8 +86,8 @@
 import { onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
 
-// --- YENİ STORE IMPORTLARI ---
-import { useProductStore } from '@/stores/products' // Dosya adın products.ts ise böyle kalsın
+
+import { useProductStore } from '@/stores/products'
 import { useCartStore } from '@/stores/cart'
 import { useWishlistStore } from '@/stores/wishlist'
 
@@ -98,7 +98,7 @@ const productStore = useProductStore()
 const cartStore = useCartStore()
 const wishlistStore = useWishlistStore()
 
-// --- KRİTİK NOKTA: Reactivity Bağlantısı ---
+// ---Reactivity Bağlantısı ---
 // Template içinde "product" diye kullandığımız değişkeni
 // Store'daki "selectedProduct" verisine bağlıyoruz.
 const product = computed(() => productStore.selectedProduct)

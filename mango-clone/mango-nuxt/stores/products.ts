@@ -56,7 +56,7 @@ export const useProductStore = defineStore('product', {
           q = productsRef
         }
 
-        const querySnapshot = await getDocs(q)
+        const querySnapshot = await getDocs(q)  //getdocs fonksiyonu verileri getirir.
         
         // Verileri işle ve state'e at
         this.products = querySnapshot.docs.map(doc => {
