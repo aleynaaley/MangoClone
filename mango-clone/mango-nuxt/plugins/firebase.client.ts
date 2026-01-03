@@ -6,12 +6,12 @@ import { getAuth } from 'firebase/auth'
 
 export default defineNuxtPlugin((nuxtApp) => {
     const firebaseConfig = {
-        apiKey: "xxxx",
-        authDomain: "xxxx",
-        projectId: "xxx",
-        storageBucket: "xxxx",
-        messagingSenderId: "1xxxx",
-        appId: "xxxxxx"
+        apiKey: "",
+        authDomain: "mangoclone-4e07f.firebaseapp.com",
+        projectId: "mangoclone-4e07f",
+        storageBucket: "mangoclone-4e07f.firebasestorage.app",
+        messagingSenderId: "1080412641898",
+        appId: "1:1080412641898:web:a297d4e3fad35be37ac813"
     };
 
     // 1. Uygulamayı başlat (Tanışma gerçekleşiyor)

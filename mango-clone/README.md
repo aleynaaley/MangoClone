@@ -1,38 +1,69 @@
-# mango-clone
+# 🛍️ Mango Clone - Modern E-Ticaret Uygulaması
 
-This template should help get you started developing with Vue 3 in Vite.
+![Nuxt 3](https://img.shields.io/badge/Nuxt-3.x-00DC82?style=for-the-badge&logo=nuxt.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript)
+![Firebase](https://img.shields.io/badge/Firebase-Firestore-FFCA28?style=for-the-badge&logo=firebase)
+![Pinia](https://img.shields.io/badge/State_Management-Pinia-F1C40F?style=for-the-badge&logo=pinia)
 
-## Recommended IDE Setup
+> **Mango Clone**; Nuxt 3, TypeScript ve Firebase teknolojileri kullanılarak geliştirilmiş, **Atomic Design** mimarisine sahip modern bir e-ticaret simülasyonudur.
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+---
 
-## Recommended Browser Setup
+## 🚀 Proje Hakkında
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+Bu proje, modern web geliştirme standartlarına uygun olarak tasarlanmıştır. Kullanıcıların ürünleri inceleyebileceği, sepete ekleyebileceği ve sipariş verebileceği dinamik bir yapı sunar.
 
-## Customize configuration
+### 🌟 Öne Çıkan Özellikler
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+* **⚡ Nuxt 3 & Vue 3:** Dosya tabanlı yönlendirme (File-based Routing) ve hibrit render yapısı.
+* **🍍 Pinia State Management:** Sepet (Cart), Favoriler ve Oturum yönetiminin merkezi hafızada tutulması.
+* **🔥 Firebase Entegrasyonu:** Ürün verilerinin **Firestore** veritabanından dinamik çekilmesi ve siparişlerin kaydedilmesi.
+* **🎨 Atomic Design:** Bileşenlerin Atom (Buton), Molekül (Kart) ve Organizma (Header) olarak modüler ayrıştırılması.
+* **🛡️ Type Safety:** Veri tutarlılığı için tamamen **TypeScript Interface** yapıları kullanılmıştır.
+* **📱 Responsive:** Mobil ve masaüstü uyumlu tasarım.
 
-## Project Setup
+---
 
-```sh
+## 🛠️ Kullanılan Teknolojiler
+
+| Alan | Teknoloji | Açıklama |
+|------|-----------|----------|
+| **Framework** | Nuxt 3 | Full-stack Vue Framework |
+| **Dil** | TypeScript | Tip güvenliği için |
+| **State** | Pinia | Global durum yönetimi |
+| **Database** | Firebase Firestore | NoSQL Veritabanı |
+| **Layout** | Custom Layouts | Auth, Checkout ve Default düzenler |
+
+---
+
+## ⚙️ Kurulum ve Çalıştırma
+
+Projeyi bilgisayarınızda çalıştırmak için ekstra bir ayar dosyasına ihtiyacınız yoktur. Sadece indirin ve başlatın.
+
+### 1. Projeyi Bilgisayarınıza İndirin
+```bash
+git clone (https://github.com/aleynaaley/MangoClone)
+cd mango-clone
+
+```
+
+### 2. Gerekli Paketleri Yükleyin
+
+```bash
 npm install
 ```
 
-### Compile and Hot-Reload for Development
-
-```sh
+### 3. Uygulamayı Başlatın
+```bash
 npm run dev
 ```
 
-### Compile and Minify for Production
+Tarayıcınızda http://localhost:3000 adresine giderek projeyi test edebilirsiniz.
 
-```sh
-npm run build
-```
+## 🔒 Güvenlik Notu
+Bu proje eğitim amaçlı geliştirildiği için Firebase API anahtarları istemci tarafında (Client-side) yapılandırılmıştır. Gerçek bir prodüksiyon ortamında güvenlik kuralları (Security Rules) ile sınırlandırılmalıdır.
+
+##  Geliştirici
+ALEYNA ERKUL
+
+GitHub: @[githubkullaniciadiniz](https://github.com/aleynaaley)
